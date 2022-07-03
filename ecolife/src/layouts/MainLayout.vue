@@ -3,21 +3,21 @@
     <q-header reveal class="navbar h-70px content-center">
       <q-toolbar>
         <router-link to="/">
-          <div class="w-15pr h-50px mt-10px">
-            <img
+          <div class="w-100pr h-40px mt-10px row items-center">
+            <img class="w-100pr"
               src="http://demo.posthemes.com/pos_ecolife/layout2/img/ecolife-responsive-prestashop-theme-logo-1580528177.jpg"
               alt="" />
           </div>
         </router-link>
         <div class="row w-85pr h-50px mt-10px content-center">
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
+          <!-- <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
           <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Food</span>
           <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
           <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span>
+          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span> -->
           <q-space />
           <router-link to="login" class="fs-18px mr-20px"> Log In </router-link>
-          <q-icon color="white" size="25px" name="search" class="q-mr-md" />
+          <!-- <q-icon color="white" size="25px" name="search" class="q-mr-md" /> -->
           <router-link to="basket">
             <q-icon color="white" size="25px" name="shopping_cart" /><strong
             class="mt-3px ml-10px mr-10px text-white text-weight-bold">{{shot}} $</strong>
@@ -129,12 +129,9 @@ a{
 .navbar{
   background: linear-gradient(
     to right,
-    rgb(68, 0, 255),
-    rgb(200, 0, 255),
-    rgb(255, 0, 221),
-    rgb(221, 0, 255),
-    rgb(255, 0, 149),
-    rgb(54, 53, 53)
+    rgb(255, 255, 255),
+    rgb(196, 191, 197),
+    rgb(114, 112, 114)
   ) ;
 }
 .span {
