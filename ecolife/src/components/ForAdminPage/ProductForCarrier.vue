@@ -5,32 +5,32 @@
         </div>
         <div class="w-100pr row justify-between wrap ">
             <div
-                v-for="(order,i) in orders"
+                v-for="(order,i) in OrdersApi"
                 :key="i">
 
                 <q-card 
                     :class="order.ready" 
                     class="my-card w-300px p-4pr mt-50px "
-                    v-if="order.product.length==1 ? true :false"
+                    v-if="order.orderForUser.length==1 ? true :false"
                 >
-                    <img :src="order.product[0].img">
+                    
 
                     <q-card-section>                        
                         <q-expansion-item
                             expand-separator
                             icon="perm_identity"
-                            label="Qabul Qiluvchi"
-                            caption="Mullajonov Alimardon"
+                            label="Maxsulot"
+                            caption="karam"
                             class="text-grey-7 br-5px bg-grey-2 q-mt-md"
                         >
                             <q-card>
                                 <q-card-section>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Oluvchi:{{order.fullname}}</div>
+                                        <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Tel raqami: {{order.telnumber}}</div>
+                                        <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
@@ -40,17 +40,19 @@
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>
-                        <div class="q-mt-sm">
-                            <div class="fs-18px ">Mahsulot: {{order.product[0].productname}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
-                        </div>
-                        <div  class="q-mt-sm">
-                            <div class="fs-18px ">Vazni: {{order.product[0].weight}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
-                        </div>
-                        <div class="q-mt-sm">
-                            <div class="fs-18px ">Soni: {{order.product[0].amount}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
+                        <div v-for="product in order.product" :key="product">
+                            <div class="q-mt-sm">
+                                <div class="fs-18px ">Mahsulot: {{product.product_name}}</div>
+                                <q-separator  size="1px" class="bg-dark" />
+                            </div>
+                            <div  class="q-mt-sm">
+                                <div class="fs-18px ">Vazni: {{product.weight}}</div>
+                                <q-separator  size="1px" class="bg-dark" />
+                            </div>
+                            <div class="q-mt-sm">
+                                <div class="fs-18px ">Soni: {{product.quantity}}</div>
+                                <q-separator  size="1px" class="bg-dark" />
+                            </div>
                         </div>
                     </q-card-section>
                     
@@ -62,188 +64,48 @@
                 </q-card>
                 <div 
                     class="dblcard mt-50px bg-w br-20px"  
-                    v-if="order.product.length!=1 ? true :false" 
+                    v-if="order.orderForUser.length > 1 ? true :false" 
                     :class="order.ready" 
                 >
                 
-                    <div class="  row justify-around">
-                        <div class=" m-30px bg-white  br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[0].img" />
+                    <div  class="  row justify-around">
+                        <div v-for="product in order.orderForUser" :key="product" class=" m-30px bg-white  br-10px products p-20px w-300px">
                             <q-expansion-item
                                 class="bg-grey-2 br-5px m-10px "
                                 expand-icon-toggle
                                 expand-separator
                                 icon="perm_identity"
                                 label="Maxsulot"
-                                :caption="order.product[0].productname"
+                                :caption="product.product_name"
                             >
                                 <q-card>
                                     <q-card-section>
                                         <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[0].productname}}</div>
+                                            <div class="fs-16px mt-5px">Mahsulot:{{product.product_name}}</div>
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                         <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[0].weight}}</div>
+                                            <div class="fs-16px mt-5px">Vazni: {{product.weight}}</div>
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                         <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[0].amount}} </div>
+                                        <div class="fs-16px mt-5px">Soni: {{product.quantity}} </div>
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                     </q-card-section>
                                 </q-card>
                             </q-expansion-item>
                         </div> 
-                        <div v-if="order.product.length>1 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[1].img" />
-                            <q-expansion-item
-                                class="bg-grey-2 br-5px m-10px "
-                                expand-icon-toggle
-                                expand-separator
-                                icon="perm_identity"
-                                label="Maxsulot"
-                                :caption="order.product[1].productname"
-                            >
-                                <q-card>
-                                    <q-card-section>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[1].productname}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[1].weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[1].amount}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                    </q-card-section>
-                                </q-card>
-                            </q-expansion-item>
-                        </div> 
-                        <div v-if="order.product.length>2 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[2].img" />
-                            <q-expansion-item
-                                class="bg-grey-2 br-5px m-10px "
-                                expand-icon-toggle
-                                expand-separator
-                                icon="perm_identity"
-                                label="Maxsulot"
-                                :caption="order.product[2].productname"
-                            >
-                                <q-card>
-                                    <q-card-section>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[2].productname}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[2].weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[2].amount}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                    </q-card-section>
-                                </q-card>
-                            </q-expansion-item>
-                        </div>
-                        <div v-if="order.product.length>3 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[3].img" />
-                            <q-expansion-item
-                                class="bg-grey-2 br-5px m-10px "
-                                expand-icon-toggle
-                                expand-separator
-                                icon="perm_identity"
-                                label="Maxsulot"
-                                :caption="order.product[3].productname"
-                            >
-                                <q-card>
-                                    <q-card-section>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[3].productname}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[3].weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[3].amount}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                    </q-card-section>
-                                </q-card>
-                            </q-expansion-item>
-                        </div>  
-                        <div v-if="order.product.length>4 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[4].img" />
-                            <q-expansion-item
-                                class="bg-grey-2 br-5px m-10px "
-                                expand-icon-toggle
-                                expand-separator
-                                icon="perm_identity"
-                                label="Maxsulot"
-                                :caption="order.product[4].productname"
-                            >
-                                <q-card>
-                                    <q-card-section>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[4].productname}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[4].weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[4].amount}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                    </q-card-section>
-                                </q-card>
-                            </q-expansion-item>
-                        </div>     
-                        <div v-if="order.product.length>5 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[5].img" />
-                            <q-expansion-item
-                                class="bg-grey-2 br-5px m-10px "
-                                expand-icon-toggle
-                                expand-separator
-                                icon="perm_identity"
-                                label="Maxsulot"
-                                :caption="order.product[5].productname"
-                            >
-                                <q-card>
-                                    <q-card-section>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{order.product[5].productname}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{order.product[5].weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{order.product[5].amount}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                    </q-card-section>
-                                </q-card>
-                            </q-expansion-item>
-                        </div>      
+                            
                         
                     </div>
                     <div class="w-100pr row justify-center pl-50px pr-50px">
                         <div class="w-100pr">
-                            <div class="fs-16px">Oluvchi:{{order.fullname}}</div>
+                            <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                             <q-separator  size="1px" class="bg-grey-7" />
                         </div>
                         <div class="w-100pr">
-                            <div class="fs-16px">Tel raqami: {{order.telnumber}}</div>
+                            <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                             <q-separator  size="1px" class="bg-grey-7" />
                         </div>
                         <div class="w-100pr">
@@ -259,14 +121,37 @@
                 </div>
             </div>
             
-
+{{OrdersApi}}
         </div>
     </div>
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
+import {ref, onMounted} from 'vue';
+import axios from "axios";
 export default {
-    
+    setup(){
+        const OrdersApi=ref([]) 
+
+        onMounted(()=>{
+            const getComment = async () => {
+                try {
+                    const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/user/');
+                    OrdersApi.value = Fetch_Product.data;
+                    console.log('lkjhg');
+                } 
+                catch (err) {
+                    console.log(err);
+                }
+
+            };
+
+            setInterval(() => getComment() , 3000);
+        })
+        return{
+            OrdersApi
+        }
+    },
     data() {
         return {
             
@@ -306,7 +191,7 @@ export default {
             rgb(255, 0, 128) 
         );  
     }
-    .Ready{
+    .ready{
         background:  linear-gradient(
             to bottom,
             red,

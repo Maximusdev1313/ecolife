@@ -1,6 +1,6 @@
 <template>
   <div class="w-100pr">
-    <div class="text-h6">Tanlangan Mahsulotlar</div>
+    <div class="text-h6">Shopping Cart</div>
     <div v-for="cost , i in costs" :key="i" class="w-90pr mt-50px">
       <div class="w-100pr h-100pr mb-10px row items-center justify-between">
         <div v-for="imgSrc in costs[i].imgLink" :key="imgSrc" class="w-25pr">
@@ -14,9 +14,9 @@
             <div class="row w-100pr ">
               <div  class="w-70pr_md-100pr_sm-100pr">
                 <span class="mr-5pr text-red-9"> {{ cost.price }}$ </span>
-                <del v-if=" cost.skitka.length >0 ? true :false " class="mr-5pr"> {{ cost.oldPrice }}$ </del>
+                <del v-if=" cost.skitka != null ? true :false " class="mr-5pr"> {{ cost.oldPrice }}$ </del>
               </div>
-              <div v-if=" cost.skitka.length >0 ? true :false ">
+              <div v-if=" cost.skitka != null ? true :false ">
                 <span class="bg-black text-white pl-5px pr-5px p-3px">
                   -{{ cost.skitka }}%
                 </span>
@@ -61,7 +61,7 @@
       <q-separator class="w-100pr pr-40px"  color="grey-5" />
     </div>
     <div class="mt-50px ml-4pr mb-50px row justify-center">
-      <q-btn class="btn" to="shop" label="Davom etish" />
+      <q-btn class="btn" to="shop" label="Continue Shopping" />
     </div>
   </div>
 </template>

@@ -5,15 +5,15 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'packer', component: () => import('src/pages/ForPackerPage.vue') },
-      { path: 'carrier', component: () => import('src/pages/ForCarrierPage.vue') },
-      { path: 'report', component: () => import('src/pages/MonthlyReport.vue') },
-      { path: 'personal', component: () => import('src/pages/Personalpage.vue') },
-      { path: 'basket', component: () => import('src/pages/BasketPage.vue')},
-      { path: 'login', component: () => import('src/pages/LoginPage.vue')},
+      { path: '/packer', component: () => import('src/pages/ForPackerPage.vue') },
+      { path: '/carrier', component: () => import('src/pages/ForCarrierPage.vue') },
+      { path: '/report', component: () => import('src/pages/MonthlyReport.vue') },
+      { path: '/personal', component: () => import('src/pages/Personalpage.vue') },
+      { path: 'shop/basket', component: () => import('src/pages/BasketPage.vue')},
+      { path: '/login', component: () => import('src/pages/LoginPage.vue')},
       { path: '/shop/:id/', component: () => import('src/pages/ShopPage.vue')},
-      { path: 'alert', component: () => import('src/pages/AlertCard.vue')},
-      { path: 'about', component: () => import('src/pages/Aboutus.vue')},
+      { path: '/alert', component: () => import('src/pages/AlertCard.vue')},
+      { path: '/about', component: () => import('src/pages/Aboutus.vue')},
       
     ]
   },

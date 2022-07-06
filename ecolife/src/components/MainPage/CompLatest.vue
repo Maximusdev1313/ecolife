@@ -1,13 +1,13 @@
 <template >
   <div class="q-mt-lg q-mb-xl">
-    <!-- <div class="w-100pr h-60px ">
+    <div class="w-100pr h-60px ">
       <div class="text-h5">
         Latest Blogs
       </div>
       <div class="text-grey">
         Present posts in a best way to highlight interesting moments of your blog.
       </div>
-    </div> -->
+    </div>
     <div class="w-100pr h-350px row  justify-between items-start content-start">
       <div class="w-32pr h-300px q-mt-lg bg-grey-2 row justify-center content-center" v-for="cart in carts" :key="cart">
         <div class="w-90pr h-80pr bg-grey-2 ">

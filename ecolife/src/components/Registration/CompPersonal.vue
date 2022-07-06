@@ -12,13 +12,11 @@
     > 
       <div class="w-100pr h-480px q-ml-md items-center"> 
         <br /> 
-        <div class=" text-grey contact text-h5 text-weight-bolder text-center"> 
-          Shaxsiy ma'lumotlar
+        <div class=" text-grey contact text-h5 text-weight-bolder"> 
+          1 Personal Information 
         </div> 
         <!-- inputlar boshlanishi --> 
-          <div class="mt-10px text-red text-center">
-          Iltimos siz bilan qayta bog'lanishimiz uchun ma'lumotlarni <br> aniqlik bilan to'ldiring
-        </div>
+        
         <br /> 
         <form> 
           <div class="q-mt-xl q-ml-md items-start content-start"> 
@@ -26,21 +24,21 @@
               type="text" 
               class="w-90pr mb-40px" 
               v-model="fullname" 
-              label="Ismingiz" 
+              label="Fullname" 
               :dense="dense" 
             /> 
             <q-input 
               type="number" 
               class="w-90pr mb-40px" 
               v-model="telnumber" 
-              label="Raqamingiz" 
+              label="Number" 
               :dense="dense" 
 
             /> 
           </div> 
         </form> 
  
-        <!-- <div class="q-mt-xl q-ml-md"> 
+        <div class="q-mt-xl q-ml-md"> 
           <form> 
             <q-input 
               class="w-90pr" 
@@ -50,17 +48,16 @@
               :dense="dense" 
             /> 
           </form> 
-        </div>  -->
+        </div> 
  
         <div class="q-mt-xl w-100pr row justify-center "> 
-          <q-btn class="btn mt-50px" @click="getLocation">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
+          <q-btn @click="getLocation" class="btn">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
         </div> 
         <br /> 
         <div class="row q-mt-md justify-center"> 
-          <q-btn color="secondary" @click="setOrder()" label="Ma'lumotlarni yuborish" /> 
+          <q-btn color="secondary" @click="setOrder()" label=" Buyurtma berish " /> 
         </div> 
-      
-
+        <br /><br /> 
         <!-- inputlar tugashi --> 
       </div> 
       <br /> 
@@ -69,46 +66,36 @@
   </div> 
 </template> 
 <script> 
+import { ref } from '@vue/reactivity';
 import { mapMutations, mapState } from 'vuex';
-import {ref} from 'vue'
 export default { 
-
   setup(){
-  const location = ref([])
-  const latitude = ref('')
-  const longitude = ref('')
-  const p = ref('')
-  const getLocation = ()=>{
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position)=>{
-        console.log(position);
-        location.value = position
-        console.log(location.value.coords.latitude);
-        latitude.value = location.value.coords.latitude
-        console.log(latitude.value);
-        longitude.value = location.value.coords.longitude
-        console.log(longitude.value);
-        // p.value = `https://www.google.si/maps/dir/40.341373,71.819171/40.3131747,71.8182588/@${latitude.value},${longitude.value},18.42z/data=!4m4!4m3!1m1!4e1!1m0`
-        // console.log(p.value);
-      })
-      //  40.3138542
-      //  40.3131747
+    const latitude=ref('')
+    const longitude=ref('')
+    const getLocation = ()=>{ 
+      if(navigator.geolocation){ 
+        navigator.geolocation.getCurrentPosition((position)=>{ 
+          location.value = position 
+          latitude.value = location.value.coords.latitude 
+          longitude.value = location.value.coords.longitude  
+        }) 
+      } 
+      else{ 
+        alert('error'); 
+      } 
     }
-    else{
-      console.log('error');
+    return{
+      getLocation,
+      latitude,
+      longitude
     }
-  }
-
-  return{
-    getLocation
-  }
   },
   data() { 
     return {   
       fullname: "", 
       telnumber: "", 
       address: "",
-  
+      location:"",
       dense:true, 
     }; 
   }, 

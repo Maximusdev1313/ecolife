@@ -2,6 +2,7 @@
   <div>
     <div>
       <CompCarusel />
+      <!-- <iframe src="https://app.vectary.com/p/7jNiKul2rMPv5T8zVuKhqc" frameborder="0" width="100%" height="550"  ></iframe> -->
     </div>
     <div class="container row wrap justify-center">
       <div class="content">

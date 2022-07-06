@@ -1,89 +1,52 @@
 <template>
   <q-page>
 
-    <div class="w-100pr row  justify-between mt-2pr">
-    <div class="w-30pr pl-7pr">
-      <span class="text-h5">Filter By</span>
-      <br>
-      <q-separator color="red" class="w-16pr text-weight-bold ml-m100pr"></q-separator>
-      <br>
-      <!-- <div >
-        <q-btn color="" text-color="white" label="x Clear" class="btn"/>
-      </div> -->
-      <span class="text-h6">categories</span>
-      <div class="column">
-        <q-checkbox v-model="right" label='Fudge Cookies(17)' class="chekbox"/>
-        <q-checkbox v-model="right1" label='Rose Cookies(17)' class="chekbox"/>
-        <q-checkbox v-model="right2" label='moravian spice(17)' class="chekbox"/>
-        <q-checkbox v-model="right3" label='Sugar Cookies(17)' class="chekbox"/>
-        
-        <br>
-        <span class="text-h6">Price</span>
-        <br>
-        <span>$9.00 - $34.00</span>
-        <br>
-        <div class="w-80pr" >
-          <q-range color="red"/>
-        </div>
-        <div>
-          <span class="text-h6">size</span>
-          <br>
-          <div class="column">
-            <q-checkbox v-model="right4" label='S(4)' class="chekbox"/>
-            <q-checkbox v-model="right5" label='M(4)' class="chekbox"/>
-            <q-checkbox v-model="right6" label='L(4)' class="chekbox"/>
-            <q-checkbox v-model="right7" label='XL(4)' class="chekbox"/>
-          </div>
-          <br>
-          <div>
-            <span class="text-h6">color</span>
-            <br>
-            <div class="column">
-              <q-checkbox  label='grey(2)' color="grey" class="chekbox"/>
-              <q-checkbox  label='white(5)' color="white" class="chekbox"/>
-              <q-checkbox  label='black(5)' color="black" class="chekbox"/>
-              <q-checkbox  label='camel(2)' color="brown" class="chekbox"/>
+    <div  class="w-100pr  row justify-center wrap mt-2pr">
+      <div class=" w-100pr text-center  text-h5">Filter By</div>
+        <div class="h-180px w-90pr row justify-between ">
+          <div class="row w-50pr ">
+            <div class=" w-100pr text-center text-h6">categories</div>
+            <div class="column mr-10px " >
+              <q-checkbox v-model="right" label='Fudge Cookies(17)' class="chekbox"/>
+              <q-checkbox v-model="right1" label='Rose Cookies(17)' class="chekbox"/>
+              <q-checkbox v-model="right2" label='moravian spice(17)' class="chekbox"/>
             </div>
+            <div class="column " >
+              <q-checkbox v-model="right3" label='Sugar Cookies(17)' class="chekbox"/>
+              <q-checkbox v-model="right4" label='moravian spice(17)' class="chekbox"/>
+              <q-checkbox v-model="right5" label='Sugar Cookies(17)' class="chekbox"/>
+            </div>
+          </div>
+          <!-- <div class="column w-30pr ">
+            <span class="text-h6">Price</span>
             <br>
-            <div>
-              <span class="text-h6">Brand</span>
-              <div class="column">
-                <q-checkbox  v-model="right8" label='Studio Design(10)' color="grey" class="chekbox"/>
-                <q-checkbox  v-model="right9" label='Graphik corner(7)' color="white" class="chekbox"/>
-              </div>
-              <br>
-              <span class="text-h6">Dimansion</span>
-              <div class="column">
-                <q-checkbox  v-model="right8" label='40x60sm(5)' color="grey" class="chekbox"/>
-                <q-checkbox  v-model="right9" label='60x90sm(5)' color="white" class="chekbox"/>
-                <q-checkbox  v-model="right9" label='80x120sm(5)' color="white" class="chekbox"/>
-              </div>
-              <br>
+            <span>$9.00 - $34.00</span>
+            <br>
+            <div class="w-80pr" >
+              <q-range color="red"/>
+            </div>
+          </div> -->
+          <div class="column w-40pr">
+            <span class="text-h6">Tags</span>
+            <div class="column mt-20px">
               <div>
-                <span class="text-h6">Tags</span>
-                <q-separator color="red" class="w-16pr text-weight-bold ml-m100pr"></q-separator>
-                <br>
-                <div>
-                  <q-btn class="btn" rounded label='cookies'/>
-                  <q-btn class="btn" rounded label='cream cake'/>
-                  <br><br>
-                  <q-btn class="btn" rounded label='chocolate cake'/>
-                  <q-btn class="btn" rounded label='Rose cookies'/>
-                </div>
-
-                <q-img src="http://demo.posthemes.com/pos_ecolife_fastfood/modules/ps_advertising/img/advertising-s1.jpg" width="80%" class="for_hover mt-80px"></q-img>
-
+                <q-btn class="btn mr-20px mb-20px" rounded label='cookies'/>
+                <q-btn class="btn mb-20px" rounded label='cream cake'/>
+              </div>
+              <div>
+                <q-btn class="btn mb-20px mr-20px" rounded label='chocolate cake'/>
+                <q-btn class="btn mb-20px " rounded label='Rose cookies'/>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      
     </div>
-    <div class="w-70pr">
-      <Shopcards/>
+    <div class="w-100pr mt-7px ">
+      <Suspense>
+        <Shopcards :products="products"  />
+      </Suspense>
     </div>
-    </div>
-    <h2>{{categoriyaProductId}}</h2>
   </q-page>
 </template>
 <script>
@@ -92,17 +55,23 @@ import { ref , onMounted } from "vue";
 import axios from "axios";
 import { useRoute } from 'vue-router';
 import Shopcards from 'src/components/ShopPage/Shopcards.vue'
+import { mapState } from 'vuex';
 
 export default {
+  computed:{
+    ...mapState(["costs"])
+  },
     setup() {
       const categoriyaProductId=ref([])
       const route = useRoute()
+      const products=ref('')
       onMounted(()=>{
         
       const getComment = async () => {
         try {
-          const Fetch_Categoriya_Id = await axios.get(`http://127.0.0.1:8000/categoriya/${route.params.id}/`);
+          const Fetch_Categoriya_Id = await axios.get(`http://adminmax.pythonanywhere.com/categoriya/${route.params.id}/`);
           categoriyaProductId.value = Fetch_Categoriya_Id.data;
+          products.value=categoriyaProductId.value.mahsulot
           console.log('lkjhg');
         } 
         catch (err) {
@@ -111,33 +80,21 @@ export default {
 
       };
       let timerId = setInterval(() => getComment(), 1000);
-      setTimeout(() => { clearInterval(timerId) }, 5000);
+      setTimeout(() => { clearInterval(timerId) }, 1100);
       
       }
   
     )
         return {
-            left: ref(true),
             right: ref(false),
-            left1: ref(true),
             right1: ref(false),
-            left2: ref(true),
             right2: ref(false),
-            left3: ref(true),
             right3: ref(false),
-            left4: ref(true),
             right4: ref(false),
-            left5: ref(true),
             right5: ref(false),
-            left6: ref(true),
             right6: ref(false),
-            left7: ref(true),
-            right7: ref(false),
-            left8: ref(true),
-            right8: ref(false),
-            left9: ref(true),
-            right9: ref(false),
-            categoriyaProductId
+            categoriyaProductId,
+            products
         };
     },
     components: { Shopcards }
@@ -170,5 +127,10 @@ export default {
     opacity: 1;
     transition: 1s;
     color: red;
+  }
+  @media screen and (max-width:800px) {
+    .mt-7px{
+      margin-top: 150px;
+    }
   }
 </style>
