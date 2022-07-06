@@ -1,7 +1,10 @@
 <template>
     <div class="bg-grey-3">
         <Report/>
-        <ProductForCarrier/>
+        <Suspense>
+          <ProductForCarrier/>
+        </Suspense>
+        
     </div>
 </template>
 <script>
