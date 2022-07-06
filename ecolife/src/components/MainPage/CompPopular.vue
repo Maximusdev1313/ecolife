@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="w-100pr h-80px bg-white q-mt-lg row content-center">
+    <!-- <div class="w-100pr h-80px bg-white q-mt-lg row content-center">
       <div>
         <div class="text-h5">Popular Categories</div>
         <div class="text-grey">Add Popular Categories to weekly line up</div>
       </div>
-    </div>
+    </div> -->
 
     <div class="
         w-100pr

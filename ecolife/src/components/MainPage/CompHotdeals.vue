@@ -4,10 +4,10 @@
       <div class=" w-35pr h-90pr bg-grey-1">
         <div class="w-100pr h-7pr bg-white">
           <div class="text-h5">
-            Hot Deals
+            Mega chegirmalar
           </div>
           <div class="text-grey">
-            Add hot products to weekly line up
+            Mijozlar uchun har oylik  mega chegirmalar
           </div>
         </div>
         <CompCarusel2 />
@@ -16,10 +16,10 @@
       <div v-if="visable" class="w-63pr h-95pr ml-5px  row wrap justify-between items-start content-start">
         <div class="w-100pr h-7pr bg-white">
           <div class="text-h5">
-            New Arrivals
+            Chegirmalar
           </div>
           <div class="text-grey">
-            Add new products to weekly line upf
+            Mijozlarimiz uchun chegirmalar
           </div>
           
         </div>

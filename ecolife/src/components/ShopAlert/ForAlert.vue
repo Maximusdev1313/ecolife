@@ -20,7 +20,7 @@
             <span class="fs-22px_md-20px_sm-18px">soni:{{product.amount}}</span>
           </div>
           <div class="row no-wrap items-center w-100pr">
-            <q-btn class="bg-dark text-white q-my-md q-mr-md h-50px">Continue Shopping</q-btn>
+            <q-btn class="bg-dark text-white q-my-md q-mr-md h-50px">Davom ettirish</q-btn>
             <q-btn class="bg-dark text-white">Lorem, ip dolor.</q-btn>
           </div>
         </div>

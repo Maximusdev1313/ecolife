@@ -16,6 +16,7 @@
         <q-checkbox v-model="right1" label='Rose Cookies(17)' class="chekbox"/>
         <q-checkbox v-model="right2" label='moravian spice(17)' class="chekbox"/>
         <q-checkbox v-model="right3" label='Sugar Cookies(17)' class="chekbox"/>
+        
         <br>
         <span class="text-h6">Price</span>
         <br>

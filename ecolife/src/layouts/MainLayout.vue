@@ -3,20 +3,32 @@
     <q-header reveal class="navbar h-70px content-center">
       <q-toolbar>
         <router-link to="/">
-          <div class="w-15pr h-50px mt-10px">
+          <div class="w-15pr h-50px mt-15px ml-20px">
             <img
-              src="http://demo.posthemes.com/pos_ecolife/layout2/img/ecolife-responsive-prestashop-theme-logo-1580528177.jpg"
+              src="../assets/logo-white-font.png"
+              width="60"
               alt="" />
           </div>
         </router-link>
         <div class="row w-85pr h-50px mt-10px content-center">
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Food</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span>
+          <router-link to="/">
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black text-center">Bosh sahifa</span>
+          </router-link>
+          <!-- <router-link to="">
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Food</span>
+          </router-link>
+          <router-link>
+             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
+          </router-link>
+          <router-link>
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
+          </router-link> -->
+          <router-link to="/about">
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Biz haqimizda</span>
+          </router-link>
+          
           <q-space />
-          <router-link to="login" class="fs-18px mr-20px"> Log In </router-link>
+          <router-link to="login" class="fs-18px mr-20px">Registratsiya</router-link>
           <q-icon color="white" size="25px" name="search" class="q-mr-md" />
           <router-link to="basket">
             <q-icon color="white" size="25px" name="shopping_cart" /><strong
@@ -35,14 +47,12 @@
         <div class="w-92pr h-60pr row">
           <div class="w-25pr h-100pr">
             <div class="text-h6 text-weight-bolder text-white">
-              OPENING HOURS
+              Ish vaqti
             </div>
             <div class="q-mt-lg text-grey text-weight-bold">
-              Monday – Friday: 8am – 4pm
+              Dushanba – Yakshanba: 8:00 – 20:00
             </div>
-            <div class="mt-10px text-grey text-weight-bold">
-              Saturday: 9am – 5pm
-            </div>
+
             <div class="q-mt-lg">
               <q-icon class="icon" name="fab fa-facebook-f" />
               <q-icon class="icon q-ml-md" name="fab fa-twitter" />
@@ -52,28 +62,28 @@
             </div>
           </div>
           <div class="w-25pr h-100pr">
-            <div class="text-h6 text-weight-bolder text-white">INFORMATION</div>
+            <div class="text-h6 text-weight-bolder text-white">Ma'lumotlar</div>
             <div class="a-href column q-mt-lg text-weight-bold">
-              <a href="">Dlivery</a>
-              <a href="">About Us</a>
-              <a href="">Secure Paymett</a>
-              <a href="">Contact Us</a>
-              <a href="">Sitemap</a>
+              <a href="">Yetkazib berish</a>
+              <a href="">Biz haqimizda</a>
+              <!-- <a href="">Secure Paymett</a> -->
+              <a href="">Biz bilan bog'lanish</a>
+              <!-- <a href="">Sitemap</a> -->
             </div>
           </div>
           <div class="w-25pr h-100pr">
             <div class="text-h6 text-weight-bolder text-white">
-              CUSTOM LINKS
+              Foydalanish uchun
             </div>
             <div class="a-href column q-mt-lg text-weight-bold">
-              <a href="">Legal Notice</a>
-              <a href="">Prices Drop</a>
-              <a href="">New Product</a>
-              <a href="">Best Sales</a>
-              <a href="">Login</a>
+              <a href="">Foydalanuvchi shartlari</a>
+              <a href="">Chegirmalar</a>
+              <a href="">Registratsiya</a>
+              <!-- <a href="">Best Sales</a> -->
+              <a href="">Boshqa loyihalar</a>
             </div>
           </div>
-          <div class="w-25pr h-100pr">
+          <!-- <div class="w-25pr h-100pr">
             <div class="text-h6 text-weight-bolder text-white">NEWSLETTER</div>
             <div class="q-mt-lg text-grey text-weight-bold">
               Be the first to know about our new arrivals and exclusive offers.
@@ -83,7 +93,7 @@
                 <q-input outlined type="email" bg-color="white" v-model="email" :dense="dense" />
               </form>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="row justify-center">
@@ -93,7 +103,7 @@
         <div>
           <img src="http://demo.posthemes.com/pos_ecolife_fastfood/img/cms/payment.png" alt="" />
         </div>
-        <div class="q-mt-xl">Copyright © Posthemes. All Rights Reserved</div>
+        <div class="q-mt-xl">Copyright © . All Rights Reserved</div>
       </div>
     </q-footer>
   </q-layout>
