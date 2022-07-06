@@ -25,11 +25,11 @@
         </div>
 
         
-          <div class="cart w-205px h-380px  q-mt-md row justify-center content-center" v-for="(product , i) in products"
+          <div class="cart w-205px h-320px  q-mt-md row justify-center content-center" v-for="(product , i) in products"
           :key="i">
           <div class="w-90pr h-90pr  ">
-            <div  class="w-100pr h-54pr" v-for="imgSrc in products[i].rasmlari" :key="imgSrc" >
-              <q-img :src="imgSrc.file_field">
+            <div  class="w-100pr h-45pr" v-for="imgSrc in product.rasmlari" :key="imgSrc" >
+              <q-img height="100%" :src="imgSrc.link">
                 <div class="search w-100pr h-100pr row content-center justify-center" style="background: none;">
                   <q-icon class="icon" size="25px" name="search" />
                 </div>
@@ -47,7 +47,7 @@
               </div>
               <div>
                 <del v-if=" product.narx.length!=0 ? true :false " class="text-grey">{{ product.narx }}$</del>
-                <span class="ml-5px text-dark text-subtitle1">{{ product.narxi }}$</span>
+                <span class="ml-5px text-dark text-subtitle1">{{ product.chegirma_narx }}$</span>
                 <q-icon class="ml-20px" @click="addBacket(i)" color="yellow" size="25px" name="shopping_cart" />
               </div>
             </div>
@@ -95,7 +95,7 @@ setup() {
         visable.value=true
         const getComment = async () => {
           try {
-            const Fetch_Product = await axios.get('http://127.0.0.1:8000/productlar/');
+            const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/productlar/');
             ProductsApi.value = Fetch_Product.data;
             console.log('lkjhg');
           } 
@@ -115,7 +115,7 @@ setup() {
         }
         const getPush=()=>{
           products.value=[]
-          for( let i=0; i < 3 ; i++ ){
+          for( let i=0; i < 1 ; i++ ){
             products.value.push(productFilter.value[i])
           }
         }
@@ -141,7 +141,8 @@ setup() {
     return {
       yangi:0,
       toolbar:false,
-      alertApi:''
+      alertApi:'',
+      id:""
     }
   },
   
@@ -183,6 +184,7 @@ setup() {
         for(let j=0 ; j<this.costs.length ; j++){
           if(this.products[i].nomi==this.costs[j].name){
             this.yangi++
+            this.id=j
           }
         }
         console.log(this.yangi);
@@ -209,9 +211,9 @@ setup() {
           this.alertApi=cost
         }
         else{
-          this.INCREMENT(i)
+          this.INCREMENT(this.id)
           this.CALCULATION_SHOT(i)
-          this.alertApi=this.costs[i]
+          this.alertApi=this.costs[this.id]
         }
         console.log(this.alertApi);
         this.toolbar=true

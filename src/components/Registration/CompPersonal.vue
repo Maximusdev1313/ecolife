@@ -51,11 +51,11 @@
         </div> 
  
         <div class="q-mt-xl w-100pr row justify-center "> 
-          <q-btn class="btn">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
+          <q-btn @click="getLocation" class="btn">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
         </div> 
         <br /> 
         <div class="row q-mt-md justify-center"> 
-          <q-btn color="secondary" @click="setOrder()" label="Send Message" /> 
+          <q-btn color="secondary" @click="setOrder()" label=" Buyurtma berish " /> 
         </div> 
         <br /><br /> 
         <!-- inputlar tugashi --> 
@@ -66,8 +66,30 @@
   </div> 
 </template> 
 <script> 
+import { ref } from '@vue/reactivity';
 import { mapMutations, mapState } from 'vuex';
 export default { 
+  setup(){
+    const latitude=ref('')
+    const longitude=ref('')
+    const getLocation = ()=>{ 
+      if(navigator.geolocation){ 
+        navigator.geolocation.getCurrentPosition((position)=>{ 
+          location.value = position 
+          latitude.value = location.value.coords.latitude 
+          longitude.value = location.value.coords.longitude  
+        }) 
+      } 
+      else{ 
+        alert('error'); 
+      } 
+    }
+    return{
+      getLocation,
+      latitude,
+      longitude
+    }
+  },
   data() { 
     return {   
       fullname: "", 

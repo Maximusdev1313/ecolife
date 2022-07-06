@@ -15,47 +15,6 @@ import { createStore } from 'vuex'
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     state:{
-      products:[
-        {
-          id:0,
-          name:"olma",
-          imgLink:"http://demo.posthemes.com/pos_ecolife_fastfood/375-cart_default/pizza-mushrooms.jpg",
-          color:"qizil",
-          oldPrice:1500,
-          price:15000,
-          type:"",
-          size:"kg",
-          skitka:'',
-          btnbacket:true,
-          dialogMassage:false
-        },
-        {
-          id:1,
-          name:"anor",
-          imgLink:"http://demo.posthemes.com/pos_ecolife_fastfood/375-cart_default/pizza-mushrooms.jpg",
-          color:"qizil",
-          oldPrice:"",
-          price:50000,
-          type:"",
-          size:"kg",
-          skitka:'',
-          btnbacket:true,
-          dialogMassage:false
-        },
-        {
-          id:2,
-          name:"nok",
-          imgLink:"http://demo.posthemes.com/pos_ecolife_fastfood/375-cart_default/pizza-mushrooms.jpg",
-          color:"sariq",
-          oldPrice:"",
-          price:35000,
-          type:"",
-          size:"kg",
-          skitka:'',
-          btnbacket:true,
-          dialogMassage:false
-        }
-      ],
       categoriy:'',
       costs:[],
       shot:"0.00",
