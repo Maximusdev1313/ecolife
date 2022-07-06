@@ -127,9 +127,17 @@
     </div>
 </template>
 <script>
+import { mapMutations, mapState } from 'vuex';
+// import {ref, onMounted} from 'vue';
+// import axios from "axios";
 import { mapMutations, mapState } from 'vuex'
 export default {
-    
+    setup(){
+
+        return{
+
+        }
+    },
     data() {
         return {
             
