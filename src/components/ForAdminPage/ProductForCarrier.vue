@@ -1,4 +1,4 @@
-<!-- <template >
+<template >
     <div class="w-100pr p-50px ">
         <div class="w-100pr text-center fs-22px">
             Buyurtmalar
@@ -26,11 +26,11 @@
                             <q-card>
                                 <q-card-section>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Oluvchi:{{order.fullname}}</div>
+                                        <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Tel raqami: {{order.telnumber}}</div>
+                                        <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
@@ -42,7 +42,7 @@
                         </q-expansion-item>
                         <div v-for="product in order.product" :key="product">
                             <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot: {{product.productname}}</div>
+                                <div class="fs-18px ">Mahsulot: {{product.product_name}}</div>
                                 <q-separator  size="1px" class="bg-dark" />
                             </div>
                             <div  class="q-mt-sm">
@@ -50,7 +50,7 @@
                                 <q-separator  size="1px" class="bg-dark" />
                             </div>
                             <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{product.amount}}</div>
+                                <div class="fs-18px ">Soni: {{product.quantity}}</div>
                                 <q-separator  size="1px" class="bg-dark" />
                             </div>
                         </div>
@@ -64,24 +64,24 @@
                 </q-card>
                 <div 
                     class="dblcard mt-50px bg-w br-20px"  
-                    v-if="order.product.length > 1 ? true :false" 
+                    v-if="order.orderForUser.length > 1 ? true :false" 
                     :class="order.ready" 
                 >
                 
                     <div  class="  row justify-around">
-                        <div v-for="product in order.product" :key="product" class=" m-30px bg-white  br-10px products p-20px w-300px">
+                        <div v-for="product in order.orderForUser" :key="product" class=" m-30px bg-white  br-10px products p-20px w-300px">
                             <q-expansion-item
                                 class="bg-grey-2 br-5px m-10px "
                                 expand-icon-toggle
                                 expand-separator
                                 icon="perm_identity"
                                 label="Maxsulot"
-                                :caption="product.productname"
+                                :caption="product.product_name"
                             >
                                 <q-card>
                                     <q-card-section>
                                         <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{product.productname}}</div>
+                                            <div class="fs-16px mt-5px">Mahsulot:{{product.product_name}}</div>
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                         <div class="w-100pr">
@@ -89,7 +89,7 @@
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                         <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{product.amount}} </div>
+                                        <div class="fs-16px mt-5px">Soni: {{product.quantity}} </div>
                                             <q-separator  size="1px" class="bg-grey-7" />
                                         </div>
                                     </q-card-section>
@@ -101,11 +101,11 @@
                     </div>
                     <div class="w-100pr row justify-center pl-50px pr-50px">
                         <div class="w-100pr">
-                            <div class="fs-16px">Oluvchi:{{order.fullname}}</div>
+                            <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                             <q-separator  size="1px" class="bg-grey-7" />
                         </div>
                         <div class="w-100pr">
-                            <div class="fs-16px">Tel raqami: {{order.telnumber}}</div>
+                            <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                             <q-separator  size="1px" class="bg-grey-7" />
                         </div>
                         <div class="w-100pr">
@@ -191,7 +191,7 @@ export default {
             rgb(255, 0, 128) 
         );  
     }
-    .Ready{
+    .ready{
         background:  linear-gradient(
             to bottom,
             red,
@@ -250,7 +250,7 @@ export default {
         }
     }
     
-</style> -->
+</style>
 <!-- <div class="w-100pr row justify-center">
     <q-btn class="bg-green text-white">Yetkazish</q-btn>
 </div> -->
