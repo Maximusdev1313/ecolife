@@ -18,15 +18,15 @@
         content-start
       ">
       <router-link :to="'/shop/'+categoriy.id" v-for="(categoriy , i) in categoriya" :key="i">
-        <div class="  q-mt-lg" >
-          <q-img :src="categoriyaImg[i].file_field" width="400px" height="160px">
+        <div class="q-mt-lg" >
+          <q-img v-for="categoriyaImg in categoriy.rasmlar" :key="categoriyaImg" :src="categoriyaImg.link" width="400px" height="160px">
             <div class="w-100pr h-100pr row items-center" style="background: none">
               <div class="text-fresh q-ml-md w-40pr h-70pr" style="background: none">
                 <div class="text-h6 text-weight-medium text-black">
                   {{ categoriy.categoriya_nomi }}
                 </div>
-                <div class="text-grey">
-                  {{ categoriyaImg[i].title }}
+                <div v-for="categoriyaImg in categoriy.rasmlar" :key="categoriyaImg" class="text-grey">
+                  {{ categoriyaImg.title }}
                 </div>
                 <div class="a">
                   <a href="">{{ categoriy.a }}</a>
@@ -52,7 +52,7 @@ export default {
         
       const getComment = async () => {
         try {
-          const Fetch_Categoriya = await axios.get('http://127.0.0.1:8000/categoriya/');
+          const Fetch_Categoriya = await axios.get('http://adminmax.pythonanywhere.com/categoriya/');
           categoriya.value = Fetch_Categoriya.data;
           console.log('lkjhg');
         } 
@@ -61,17 +61,17 @@ export default {
         }
 
       };
-      const getCategoriya_imgs = async () =>{
-        try {
-          const Fetch_Categoriya_Img = await axios.get('http://127.0.0.1:8000/rasmlar/');
-          categoriyaImg.value = Fetch_Categoriya_Img.data;
-        } 
-        catch (err) {
-          console.log(err);
-        }
-      }
-       let timerId = setInterval(() => { getComment(); getCategoriya_imgs()}, 1000);
-      setTimeout(() => { clearInterval(timerId) }, 5000);
+      // const getCategoriya_imgs = async () =>{
+      //   try {
+      //     const Fetch_Categoriya_Img = await axios.get('http://adminmax.pythonanywhere.com/rasmlar/');
+      //     categoriyaImg.value = Fetch_Categoriya_Img.data;
+      //   } 
+      //   catch (err) {
+      //     console.log(err);
+      //   }
+      // }
+       let timerId = setInterval(() => { getComment()}, 1000);
+      setTimeout(() => { clearInterval(timerId) }, 2000);
       
       }
   
