@@ -1,17 +1,17 @@
-<template >
+<!-- <template >
     <div class="w-100pr p-50px ">
         <div class="w-100pr text-center fs-22px">
             Buyurtmalar
         </div>
         <div class="w-100pr row justify-between wrap ">
             <div
-                v-for="(order,i) in orders"
+                v-for="(order,i) in OrdersApi"
                 :key="i">
 
                 <q-card 
                     :class="order.ready" 
                     class="my-card w-300px p-4pr mt-50px "
-                    v-if="order.product.length==1 ? true :false"
+                    v-if="order.orderForUser.length==1 ? true :false"
                 >
                     
 
@@ -19,8 +19,8 @@
                         <q-expansion-item
                             expand-separator
                             icon="perm_identity"
-                            label="Qabul Qiluvchi"
-                            caption="Mullajonov Alimardon"
+                            label="Maxsulot"
+                            caption="karam"
                             class="text-grey-7 br-5px bg-grey-2 q-mt-md"
                         >
                             <q-card>
@@ -70,7 +70,6 @@
                 
                     <div  class="  row justify-around">
                         <div v-for="product in order.product" :key="product" class=" m-30px bg-white  br-10px products p-20px w-300px">
-                            <!-- <q-img width="100%" class="br-3px" :src="product.img" /> -->
                             <q-expansion-item
                                 class="bg-grey-2 br-5px m-10px "
                                 expand-icon-toggle
@@ -122,14 +121,37 @@
                 </div>
             </div>
             
-
+{{OrdersApi}}
         </div>
     </div>
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
+import {ref, onMounted} from 'vue';
+import axios from "axios";
 export default {
-    
+    setup(){
+        const OrdersApi=ref([]) 
+
+        onMounted(()=>{
+            const getComment = async () => {
+                try {
+                    const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/user/');
+                    OrdersApi.value = Fetch_Product.data;
+                    console.log('lkjhg');
+                } 
+                catch (err) {
+                    console.log(err);
+                }
+
+            };
+
+            setInterval(() => getComment() , 3000);
+        })
+        return{
+            OrdersApi
+        }
+    },
     data() {
         return {
             
@@ -228,7 +250,7 @@ export default {
         }
     }
     
-</style>
+</style> -->
 <!-- <div class="w-100pr row justify-center">
     <q-btn class="bg-green text-white">Yetkazish</q-btn>
 </div> -->
