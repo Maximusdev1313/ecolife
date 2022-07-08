@@ -9,7 +9,7 @@
               alt="" />
           </div>
         </router-link>
-        <div class="row w-85pr h-50px mt-10px content-center justify-between">
+        <div class="row w-85pr h-50px mt-10px items-center justify-between">
           <div>
             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black"> <router-link to="/shop">Shop</router-link> </span>
