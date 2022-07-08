@@ -20,12 +20,12 @@
       <router-link :to="'/shop/'+categoriy.id" v-for="(categoriy , i) in categoriya" :key="i">
         <div class="q-mt-lg" >
           <q-img v-for="categoriyaImg in categoriy.rasmlar" :key="categoriyaImg" :src="categoriyaImg.link" width="400px" height="160px">
-            <div class="w-100pr h-100pr row items-center" style="background: none">
+            <div class="w-100pr h-100pr row items-center" >
               <div class="text-fresh q-ml-md w-40pr h-70pr" style="background: none">
-                <div class="text-h6 text-weight-medium text-black">
+                <div class="text-h6 text-weight-medium text-white">
                   {{ categoriy.categoriya_nomi }}
                 </div>
-                <div v-for="categoriyaImg in categoriy.rasmlar" :key="categoriyaImg" class="text-grey">
+                <div v-for="categoriyaImg in categoriy.rasmlar" :key="categoriyaImg" class="text-white">
                   {{ categoriyaImg.title }}
                 </div>
                 <div class="a">

@@ -2,7 +2,7 @@
   <div class="q-mt-xl">
     <div class="w-100pr h-70px  content-center">
       <div class="text-h5 mt-10px">
-        Featured Products
+        Eng kerakli mahsulotlar
       </div>
       <div class="text-grey ">
         Add featured products to weekly line up

@@ -3,15 +3,15 @@
     <q-carousel swipeable animated arrows v-model="slide" infinite :autoplay="true" style="height: auto;">
       <q-carousel-slide class="w-100pr" :name="1">
         <q-img class="w-100pr h-610px"
-          src="http://demo.posthemes.com/pos_ecolife_fastfood/modules/posslideshows/images/sample-1.jpg">
-          <div class="w-100pr h-100pr row items-center" style="background: none">
+          src="https://catherineasquithgallery.com/uploads/posts/2021-02/1612484057_90-p-ovoshchi-na-serom-fone-169.jpg">
+          <div class="w-100pr h-100pr row items-center" >
             <div class="w-26pr h-33pr q-ml-xl" style="background: none">
-              <div class="text-black">COFFEE CREAM & CHOCOLATE</div>
-              <div class="text-h4 mt-7px text-black text-weight-bold">
+              <div class="text-yellow-6">COFFEE CREAM & CHOCOLATE</div>
+              <div class="text-h4 mt-7px text-white text-weight-bold">
                 Girella Motta Cacao Soft Sponge Cake
               </div>
               <div class="q-mt-lg">
-                <q-btn class="btn" unelevated rounded color="secondary" label="SHOP NOW" />
+                <q-btn class="btn" unelevated rounded color="secondary" size="15px" label="SHOP NOW" />
               </div>
             </div>
           </div>
@@ -20,15 +20,15 @@
 
       <q-carousel-slide :name="2">
         <q-img class="w-100pr h-610px"
-          src="http://demo.posthemes.com/pos_ecolife_fastfood/modules/posslideshows/images/sample-2.jpg">
-          <div class="w-100pr h-100pr row items-center" style="background: none">
+          src="https://catherineasquithgallery.com/uploads/posts/2021-02/1612756773_1-p-fon-goluboi-s-fruktami-1.jpg">
+          <div class="w-100pr h-100pr row items-center" >
             <div class="w-26pr h-33pr q-ml-xl" style="background: none">
-              <div class="text-black">COFFEE CREAM & CHOCOLATE</div>
-              <div class="text-h4 mt-7px text-black text-weight-bold">
+              <div class="text-yellow-6">COFFEE CREAM & CHOCOLATE</div>
+              <div class="text-h4 mt-7px text-white text-weight-bold">
                 Girella Motta Cacao Soft Sponge Cake
               </div>
               <div class="q-mt-lg">
-                <q-btn class="btn" unelevated rounded color="secondary" label="SHOP NOW" />
+                <q-btn class="btn" unelevated rounded color="secondary" size="15px" label="SHOP NOW" />
               </div>
             </div>
           </div>
