@@ -13,7 +13,9 @@
            </div>
         </div>
         <Report/>
-        <ProductForPacker/>
+        <Suspense>
+            <ProductForPacker/>
+        </Suspense>
     </div>
 </template>
 <script>

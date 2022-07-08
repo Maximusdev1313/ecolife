@@ -4,10 +4,11 @@
             Buyurtmalar
         </div>
         <div class="w-100pr row justify-between wrap ">
+           
             <div
                 v-for="(order,i) in OrdersApi"
                 :key="i">
-
+                    <!-- bitta maxsulot xarid qilganlar uchun -->
                 <q-card 
                     :class="order.ready" 
                     class="my-card w-300px p-4pr mt-50px "
@@ -17,41 +18,59 @@
 
                     <q-card-section>                        
                         <q-expansion-item
+                            v-for="product in order.orderForUser" :key="product"
                             expand-separator
                             icon="perm_identity"
                             label="Maxsulot"
-                            caption="karam"
+                            :caption="product.product_name"
                             class="text-grey-7 br-5px bg-grey-2 q-mt-md"
                         >
                             <q-card>
-                                <q-card-section>
+                                <q-card-section >
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Oluvchi:{{order.userName}}</div>
+                                        <div class="fs-16px">Nomi:{{product.product_name}}</div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.weight != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Vazni: {{product.weight}}</div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.quantity != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Soni:{{product.quantity}} </div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.litr != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Litri:{{product.litr}} </div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
+                                        <div class="fs-16px">Maxsulot narxi: {{ product.summa}} So'm </div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Manzili:{{order.address}} </div>
+                                        <div v-if="product.quantity != null ? true : false" class="fs-16px">Jami maxsulot narxi: {{ product.summa * product.quantity}} So'm</div>
+                                        <div v-if="product.weight != null ? true : false" class="fs-16px">Jami maxsulot narxi: {{ product.summa * product.weight}} So'm </div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>
-                        <div v-for="product in order.product" :key="product">
+                        <div >
                             <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot: {{product.product_name}}</div>
+                                <div class="fs-18px ">Oluvchi: {{order.userName}}</div>
                                 <q-separator  size="1px" class="bg-dark" />
                             </div>
                             <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{product.weight}}</div>
+                                <div class="fs-18px ">Tel Raqami: {{order.phoneNumber}}</div>
                                 <q-separator  size="1px" class="bg-dark" />
                             </div>
                             <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{product.quantity}}</div>
+                                <div class="fs-18px ">Manzili: {{order.address}}</div>
                                 <q-separator  size="1px" class="bg-dark" />
+                            </div>
+                            <div class="w-100pr">
+                                <div class="fs-16px">Umumiy maxsulotlar Narxi :{{order.total}} </div>
+                                <q-separator  size="1px" class="bg-grey-7" />
                             </div>
                         </div>
                     </q-card-section>
@@ -62,6 +81,7 @@
                         </div>                        
                     </q-card-section>
                 </q-card>
+                 <!-- ikki va undan ko'p maxsulot xarid qilganlar uchun -->
                 <div 
                     class="dblcard mt-50px bg-w br-20px"  
                     v-if="order.orderForUser.length > 1 ? true :false" 
@@ -81,17 +101,30 @@
                                 <q-card>
                                     <q-card-section>
                                         <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Mahsulot:{{product.product_name}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                            <div class="fs-16px mt-5px">Vazni: {{product.weight}}</div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
-                                        <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Soni: {{product.quantity}} </div>
-                                            <q-separator  size="1px" class="bg-grey-7" />
-                                        </div>
+                                        <div class="fs-16px">Nomi:{{product.product_name}}</div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.weight != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Vazni: {{product.weight}}</div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.quantity != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Soni:{{product.quantity}} </div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div v-if="product.litr != null ? true : false" class="w-100pr">
+                                        <div class="fs-16px">Litri:{{product.litr}} </div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div class="w-100pr">
+                                        <div class="fs-16px">Maxsulot narxi: {{ product.summa}} So'm </div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
+                                    <div class="w-100pr">
+                                        <div v-if="product.quantity != null ? true : false" class="fs-16px">Jami maxsulot narxi: {{ product.summa * product.quantity}} So'm</div>
+                                        <div v-if="product.weight != null ? true : false" class="fs-16px">Jami maxsulot narxi: {{ product.summa * product.weight}} So'm </div>
+                                        <q-separator  size="1px" class="bg-grey-7" />
+                                    </div>
                                     </q-card-section>
                                 </q-card>
                             </q-expansion-item>
@@ -112,6 +145,10 @@
                             <div class="fs-16px">Manzili:{{order.address}} </div>
                             <q-separator  size="1px" class="bg-grey-7" />
                         </div>
+                        <div class="w-100pr">
+                            <div class="fs-16px">Umumiy maxsulotlar Narxi :{{order.total}} </div>
+                            <q-separator  size="1px" class="bg-grey-7" />
+                        </div>
                     </div>
                     <div class="w-100pr h-70px mt-20px  ">
                         <div class="w-100pr row justify-center">
@@ -120,33 +157,44 @@
                     </div>
                 </div>
             </div>
-            
-{{OrdersApi}}
         </div>
     </div>
 </template>
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 import {ref, onMounted} from 'vue';
 import axios from "axios";
 export default {
     setup(){
         const OrdersApi=ref([]) 
-
+        const a=ref(0)
         onMounted(()=>{
             const getComment = async () => {
                 try {
                     const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/user/');
                     OrdersApi.value = Fetch_Product.data;
-                    console.log('lkjhg');
+                    console.log(OrdersApi.value[0].orderForUser.length);
+                    
                 } 
                 catch (err) {
                     console.log(err);
                 }
 
             };
-
-            setInterval(() => getComment() , 3000);
+            
+            for(let i=0; i<2;i++){
+                a.value++
+                if(a.value==1){
+                    let TimeOff=setInterval(() => getComment() , 1000);
+                setTimeout(()=>{
+                    clearInterval(TimeOff)
+                },2000)
+                }
+                else{
+                    setInterval(() => getComment() , 20000)
+                }
+            }
+            
         })
         return{
             OrdersApi
@@ -163,10 +211,6 @@ export default {
             this.SET_OUT(i)
         },
     },
-    computed:{
-        ...mapState(["orders"]),
-        
-    }
 }
 </script>
 <style scoped>

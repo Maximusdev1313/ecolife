@@ -13,7 +13,7 @@
         <CompCarusel2 />
       </div>
 
-      <div v-if="visable" class="w-63pr h-95pr ml-5px  row wrap justify-between items-start content-start">
+      <div class="w-63pr h-95pr ml-5px  row wrap justify-between items-start content-start">
         <div class="w-100pr h-7pr bg-white">
           <div class="text-h5">
             New Arrivals
@@ -25,49 +25,51 @@
         </div>
 
         
-          <div class="cart w-205px h-320px  q-mt-md row justify-center content-center" v-for="(product , i) in products"
-          :key="i">
-          <div class="w-90pr h-90pr  ">
-            <div  class="w-100pr h-45pr" v-for="imgSrc in product.rasmlari" :key="imgSrc" >
-              <q-img height="100%" :src="imgSrc.link">
-                <div class="search w-100pr h-100pr row content-center justify-center" style="background: none;">
-                  <q-icon class="icon" size="25px" name="search" />
+          <div  v-for="(product , i) in products" :key="i">
+            <div v-if="product != undefined ? true : false " class="cart w-205px h-320px  q-mt-md row justify-center content-center ">
+              <div   class="w-90pr h-90pr">
+                <div class="h-45pr">
+                  <div  class="w-100pr h-100pr" v-for="imgSrc in product.rasmlari" :key="imgSrc" >
+                    <q-img height="100%" :src="imgSrc.link">
+                      <div class="search w-100pr h-100pr row content-center justify-center" style="background: none;">
+                        <q-icon class="icon" size="25px" name="search" />
+                      </div>
+                    </q-img>
+                  </div>
                 </div>
-              </q-img>
-            </div>
-            <div class="text w-90pr h-30pr mt-20px ml-10px ">
-              <a class="href fs-12px " href="">SDUDIO DECIGN</a><br>
-              <a class="a text-subtitle1 text-weight-bold text-black" href="">{{ product.nomi }} </a>
-              <div class="row items-center">
-                <q-icon name="star" color="yellow" size="17px" />
-                <q-icon name="star" color="yellow" size="17px" />
-                <q-icon name="star" color="yellow" size="17px" />
-                <q-icon name="star" color="yellow" size="17px" />
-                <q-icon name="star" color="yellow" size="17px" />
+                <div class="text w-90pr h-30pr mt-20px ml-10px ">
+                  <a class="href fs-12px " href="">SDUDIO DECIGN</a><br>
+                  <a class="a text-subtitle1 text-weight-bold text-black" href="">{{ product.nomi }} </a>
+                  <div class="row items-center">
+                    <q-icon name="star" color="yellow" size="17px" />
+                    <q-icon name="star" color="yellow" size="17px" />
+                    <q-icon name="star" color="yellow" size="17px" />
+                    <q-icon name="star" color="yellow" size="17px" />
+                    <q-icon name="star" color="yellow" size="17px" />
+                  </div>
+                  <div>
+                    <del v-if=" product.narx.length!=0 ? true :false " class="text-grey">{{ product.narx }}$</del>
+                    <span class="ml-5px text-dark text-subtitle1">{{ product.chegirma_narx }}$</span>
+                    <q-icon class="ml-20px" @click="addBacket(i)" color="yellow" size="25px" name="shopping_cart" />
+                  </div>
+                </div>
               </div>
-              <div>
-                <del v-if=" product.narx.length!=0 ? true :false " class="text-grey">{{ product.narx }}$</del>
-                <span class="ml-5px text-dark text-subtitle1">{{ product.chegirma_narx }}$</span>
-                <q-icon class="ml-20px" @click="addBacket(i)" color="yellow" size="25px" name="shopping_cart" />
-              </div>
+              <q-dialog class="MyDialog bg-transparent" full-width v-model="toolbar">
+                <q-card class="w-90pr ">
+                  <div class="w-100pr  bg-dark row items-center justify-center" >
+                  
+                    <div class="text-white w-90pr fs-20px_md-16px_sm-12px text-center">
+                      <q-icon name="check" class="mr-10px" size="24px" />  Ushbu maxsulot Savatga qo'shildi 
+                    </div>
+                    <div class="w-10pr row justify-end">
+                      <q-icon @click="dialogVisable" name="close" class=" text-white mr-10px" size="24px" />
+                    </div>
+                  </div>
+                  <ForAlert :product="alertApi" />
+                </q-card>
+              </q-dialog>
             </div>
           </div>
-          <q-dialog class="MyDialog bg-transparent" full-width v-model="toolbar">
-            <q-card class="w-90pr ">
-              <div class="w-100pr  bg-dark row items-center justify-center" >
-                
-                <div class="text-white w-90pr fs-20px_md-16px_sm-12px text-center">
-                  <q-icon name="check" class="mr-10px" size="24px" />  Ushbu maxsulot Savatga qo'shildi 
-                </div>
-                <div class="w-10pr row justify-end">
-                  <q-icon @click="dialogVisable" name="close" class=" text-white mr-10px" size="24px" />
-                </div>
-              </div>
-              <ForAlert :product="alertApi" />
-            </q-card>
-          </q-dialog>
-          
-        </div>
       </div>
     </div>
   </div>
@@ -90,9 +92,7 @@ setup() {
       const ProductsApi=ref([])
       const productFilter=ref([])
       const products=ref([])
-      const visable=ref(false)
       onMounted(()=>{
-        visable.value=true
         const getComment = async () => {
           try {
             const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/productlar/');
@@ -115,16 +115,15 @@ setup() {
         }
         const getPush=()=>{
           products.value=[]
-          for( let i=0; i < 1 ; i++ ){
+          for( let i=0; i < 10 ; i++ ){
             products.value.push(productFilter.value[i])
           }
         }
 
         let timerId = setInterval(() => {getComment() , getFilter()}, 500);
         let timerImg= setInterval(() => {getPush()}, 1100);
-        setTimeout(() => { clearInterval(timerId) }, 1000);
+        setTimeout(() => { clearInterval(timerId) }, 2000);
         setTimeout(() => { clearInterval(timerImg) }, 2000);
-        setInterval(()=>visable.value=true,2100)
         
       }
   
@@ -133,7 +132,7 @@ setup() {
       ProductsApi,
       productFilter,
       products,
-      visable,
+      
     }
   },
 

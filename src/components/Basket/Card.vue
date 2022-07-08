@@ -4,7 +4,7 @@
     <div v-for="cost , i in costs" :key="i" class="w-90pr mt-50px">
       <div class="w-100pr h-100pr mb-10px row items-center justify-between">
         <div v-for="imgSrc in costs[i].imgLink" :key="imgSrc" class="w-25pr">
-          <q-img :width="widthImg" :src="imgSrc.file_field" />
+          <q-img :width="widthImg" :src="imgSrc.link" />
         </div>
         <div class="w-45pr content-cost " >
           <div class="w-65pr_md-65pr_sm-100pr h-90pr ">
@@ -61,7 +61,7 @@
       <q-separator class="w-100pr pr-40px"  color="grey-5" />
     </div>
     <div class="mt-50px ml-4pr mb-50px row justify-center">
-      <q-btn class="btn" to="shop" label="Continue Shopping" />
+      <q-btn class="btn" to="/shop" label="Continue Shopping" />
     </div>
   </div>
 </template>

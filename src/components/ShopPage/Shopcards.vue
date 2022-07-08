@@ -67,8 +67,7 @@
       </div>
       
     </div>
-    {{products}} <br>
-</div>
+  </div>
 </template>
 
 <script>

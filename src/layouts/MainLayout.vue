@@ -9,19 +9,25 @@
               alt="" />
           </div>
         </router-link>
-        <div class="row w-85pr h-50px mt-10px content-center">
-          <!-- <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Food</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
-          <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span> -->
-          <q-space />
-          <router-link to="login" class="fs-18px mr-20px"> Log In </router-link>
-          <!-- <q-icon color="white" size="25px" name="search" class="q-mr-md" /> -->
-          <router-link to="basket">
-            <q-icon color="white" size="25px" name="shopping_cart" /><strong
-            class="mt-3px ml-10px mr-10px text-white text-weight-bold">{{shot}} $</strong>
-          </router-link>
+        <div class="row w-85pr h-50px mt-10px content-center justify-between">
+          <div>
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black"> <router-link to="/shop">Shop</router-link> </span>
+            <!--<span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
+            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span> -->
+          </div>
+          <div class="w-35pr">
+            <q-input rounded outlined v-model="text" label=" Maxsulotlarni qidirish " />
+          </div>
+          <div>
+            <router-link to="login" class="fs-18px mr-20px"> Log In </router-link>
+            <!-- <q-icon color="white" size="25px" name="search" class="q-mr-md" /> -->
+            <router-link to="/basket">
+              <q-icon color="white" size="25px" name="shopping_cart" /><strong
+              class="mt-3px ml-10px mr-10px text-white text-weight-bold">{{shot}} $</strong>
+            </router-link>
+          </div>
         </div>
       </q-toolbar>
     </q-header>

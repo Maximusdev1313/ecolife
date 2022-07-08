@@ -1,36 +1,21 @@
 <template>
   <q-page>
-
     <div  class="w-100pr  row justify-center wrap mt-2pr">
       <div class=" w-100pr text-center  text-h5">Filter By</div>
-        <div class="h-180px w-90pr row justify-between ">
-          <div class="row w-50pr ">
-            <div class=" w-100pr text-center text-h6">categories</div>
-            <div class="column mr-10px " >
-              <q-checkbox v-model="right" label='Fudge Cookies(17)' class="chekbox"/>
-              <q-checkbox v-model="right1" label='Rose Cookies(17)' class="chekbox"/>
-              <q-checkbox v-model="right2" label='moravian spice(17)' class="chekbox"/>
-            </div>
-            <div class="column " >
-              <q-checkbox v-model="right3" label='Sugar Cookies(17)' class="chekbox"/>
-              <q-checkbox v-model="right4" label='moravian spice(17)' class="chekbox"/>
-              <q-checkbox v-model="right5" label='Sugar Cookies(17)' class="chekbox"/>
-            </div>
+        <div class="h-180px mt-20px w-90pr row justify-between ">
+          <div v-if="categoriya != undefined  ? true :false " class="row w-40pr ">
+            <div class=" w-100pr text-center text-h6">Kartigoriyalar</div>
+            <div   class=" w-100pr row  justify-between">
+              <div v-for="(categoriy ,i) in categoriya " :key="i" class="mt-15px" >
+                <q-btn rounded @click="getFilter(i)" class=" fs-18px">{{categoriy.categoriya_nomi}}</q-btn>
+              </div>
+            </div> 
           </div>
-          <!-- <div class="column w-30pr ">
-            <span class="text-h6">Price</span>
-            <br>
-            <span>$9.00 - $34.00</span>
-            <br>
-            <div class="w-80pr" >
-              <q-range color="red"/>
-            </div>
-          </div> -->
           <div class="column w-40pr">
             <span class="text-h6">Tags</span>
             <div class="column mt-20px">
               <div>
-                <q-btn class="btn mr-20px mb-20px" rounded label='cookies'/>
+                <q-btn @click="getCommen" class="btn mr-20px mb-20px" rounded label='cookies'/>
                 <q-btn class="btn mb-20px" rounded label='cream cake'/>
               </div>
               <div>
@@ -40,12 +25,15 @@
             </div>
           </div>
         </div>
-      
     </div>
     <div class="w-100pr mt-7px ">
+      <div class="w-100pr text-center fs-22px_md-20px_sm-18px mt-20px " >
+        {{categoriyPproductName}}
+      </div>
       <Suspense>
-        <Shopcards :products="products"  />
+        <Shopcards v-if="visabeProduct" :products="products"   />
       </Suspense>
+      <Shopcards v-if="visabeCateroriya" :products="categoriyPproduct"   />
     </div>
   </q-page>
 </template>
@@ -53,7 +41,6 @@
 
 import { ref , onMounted } from "vue";
 import axios from "axios";
-import { useRoute } from 'vue-router';
 import Shopcards from 'src/components/ShopPage/Shopcards.vue'
 import { mapState } from 'vuex';
 
@@ -61,55 +48,74 @@ export default {
   computed:{
     ...mapState(["costs"])
   },
+  components: { Shopcards },
     setup() {
-      const categoriyaProductId=ref([])
-      const route = useRoute()
       const products=ref('')
+      const categoriya=ref('')
+      // const categoriyPproduct=ref('')
       onMounted(()=>{
-        
-      const getComment = async () => {
-        try {
-          const Fetch_Categoriya_Id = await axios.get(`http://adminmax.pythonanywhere.com/categoriya/${route.params.id}/`);
-          categoriyaProductId.value = Fetch_Categoriya_Id.data;
-          products.value=categoriyaProductId.value.mahsulot
-          console.log('lkjhg');
-        } 
-        catch (err) {
-          console.log(err);
-        }
+        const getProduct = async () => {
+          // asynxromic tarzda maxsulotlarni olish
+          try {
+            const Fetch_Categoriya_Id = await axios.get(`http://adminmax.pythonanywhere.com/productlar/`);
+            products.value = Fetch_Categoriya_Id.data;
+          }
+          catch (err) {
+            console.log(err);
+          }
 
-      };
-      let timerId = setInterval(() => getComment(), 1000);
-      setTimeout(() => { clearInterval(timerId) }, 1100);
-      
-      }
-  
-    )
-        return {
-            right: ref(false),
-            right1: ref(false),
-            right2: ref(false),
-            right3: ref(false),
-            right4: ref(false),
-            right5: ref(false),
-            right6: ref(false),
-            categoriyaProductId,
-            products
         };
+        const getCategoriya = async () => {
+          // asynxromic tarzda cartigoriyani olish
+          try {
+            const Fetch_Categoriya_Id = await axios.get(` http://adminmax.pythonanywhere.com/categoriya/`);
+            categoriya.value = Fetch_Categoriya_Id.data;
+          } 
+          catch (err) {
+            console.log(err);
+          }
+        };
+        
+        
+        let timerId = setInterval(() => {getProduct(),getCategoriya()}, 1000);
+        setTimeout(() => { clearInterval(timerId) }, 3000);
+      
+      })
+      
+      
+      return {
+        products,
+        categoriya,
+      };
     },
-    components: { Shopcards }
+    data(){
+      return{
+        visabeProduct:true,
+        visabeCateroriya:false,
+        categoriyPproduct:"",
+        categoriyPproductName:""
+      }
+    },
+    methods:{
+
+      getFilter(i){
+        // for yordamida berilgan karigoriyni olib uning ichidagi maxsulotlarni  categoriyPproduct ga tenglashtirdim
+        for(let j=0;j < this.categoriya.length;j++ ){
+          if(this.categoriya[i].categoriya_nomi==this.categoriya[j].categoriya_nomi){
+            this.categoriyPproduct=this.categoriya[j].mahsulot
+            this.categoriyPproductName=this.categoriya[j].categoriya_nomi
+            // Shopcards kamponentini ko'rinishini o'zgartirish v-if orqali
+            this.visabeProduct=false
+            this.visabeCateroriya=true
+          }
+        }
+      }  
+    }
+     
 }
 </script>
 
 <style lang="scss" scoped>
-  .chekbox{
-    opacity: 0.8;
-  }
-  .chekbox:hover{
-    opacity: 1;
-    transition: 0.8s;
-    color: red;
-  }
   .btn{
     opacity: 1;
     transition: 0.8s;
@@ -120,13 +126,9 @@ export default {
     background-color: red;
     color: white;
   }
-  .text-black{
-    opacity: 0.8;
-  }
-  .text-black:hover{
-    opacity: 1;
-    transition: 1s;
-    color: red;
+  .btn_radio{
+    border: none;
+    background: transparent;
   }
   @media screen and (max-width:800px) {
     .mt-7px{

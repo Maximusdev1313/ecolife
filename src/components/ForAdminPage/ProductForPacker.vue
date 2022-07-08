@@ -5,46 +5,48 @@
         </div>
         <div class="w-100pr row justify-between wrap ">
             <div
-                v-for="(order,i) in orders"
+                v-for="(order,i) in OrdersApi"
                 :key="i">
-
+                    <!-- bitta maxsulot xarid qilganlar uchun -->
                 <q-card 
                     :class="order.ready" 
                     class="my-card w-300px p-4pr mt-50px "
-                    v-if="order.product.length==1 ? true :false"
+                    v-if="order.orderForUser.length==1 ? true :false"
                 >
-                    <img :src="order.product[0].imgLink">
 
-                    <q-card-section>
+                    <q-card-section v-for="product in order.orderForUser" :key="product">
                     
-                        <div class="q-mt-sm">
-                            <div class="fs-18px ">Mahsulot: {{order.product[0].name}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
+                        <div class="w-100pr">
+                            <div class="fs-16px">Nomi:{{product.product_name}}</div>
+                            <q-separator  size="1px" class="bg-grey-7" />
                         </div>
-                        <div  class="q-mt-sm">
-                            <div class="fs-18px ">Vazni: {{order.product[0].amout}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
+                        <div v-if="product.weight != null ? true : false" class="w-100pr">
+                            <div class="fs-16px">Vazni: {{product.weight}}</div>
+                            <q-separator  size="1px" class="bg-grey-7" />
                         </div>
-                        <div class="q-mt-sm">
-                            <div class="fs-18px ">Soni: {{order.product[0].amount}}</div>
-                            <q-separator  size="1px" class="bg-dark" />
+                        <div v-if="product.quantity != null ? true : false" class="w-100pr">
+                            <div class="fs-16px">Soni:{{product.quantity}} </div>
+                            <q-separator  size="1px" class="bg-grey-7" />
                         </div>
-                        
+                        <div v-if="product.litr != null ? true : false" class="w-100pr">
+                            <div class="fs-16px">Litri:{{product.litr}} </div>
+                            <q-separator  size="1px" class="bg-grey-7" />
+                        </div>
                         <q-expansion-item
                             expand-separator
                             icon="perm_identity"
                             label="Qabul Qiluvchi"
-                            caption="Mullajonov Alimardon"
+                            :caption="order.userName"
                             class="text-grey-7 br-5px bg-grey-2 q-mt-md"
                         >
                             <q-card>
                                 <q-card-section>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Oluvchi:{{order.fullname}}</div>
+                                        <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px">Tel raqami: {{order.telnumber}}</div>
+                                        <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
@@ -66,103 +68,32 @@
                         
                     </q-card-section>
                 </q-card>
+                <!-- ikki va undan ko'p maxsulot xarid qilganlar uchun -->
                 <div 
                     class="dblcard mt-50px bg-w br-20px"  
-                    v-if="order.product.length!=1 ? true :false" 
+                    v-if="order.orderForUser.length!=1 ? true :false" 
                     :class="order.ready" 
                 >
                 
                     <div class="  row justify-around">
-                        <div class=" m-30px bg-white  br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[0].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[0].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
+                        <div v-for="product in order.orderForUser" :key="product" class=" m-30px bg-white  br-10px products p-20px w-300px">
+                            <div class="w-100pr">
+                                <div class="fs-18px">Nomi:{{product.product_name}}</div>
+                                <q-separator  size="1px" class="bg-grey-7" />
                             </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[0].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
+                            <div v-if="product.weight != null ? true : false" class="w-100pr">
+                                <div class="fs-18px">Vazni: {{product.weight}}</div>
+                                <q-separator  size="1px" class="bg-grey-7" />
                             </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[0].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
+                            <div v-if="product.quantity != null ? true : false" class="w-100pr">
+                                <div class="fs-18px">Soni:{{product.quantity}} </div>
+                                <q-separator  size="1px" class="bg-grey-7" />
                             </div>
-                        </div> 
-                        <div v-if="order.product.length>1 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[1].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[1].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
+                            <div v-if="product.litr != null ? true : false" class="w-100pr">
+                                <div class="fs-18px">Litri:{{product.litr}} </div>
+                                <q-separator  size="1px" class="bg-grey-7" />
                             </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[1].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[1].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                        </div> 
-                        <div v-if="order.product.length>2 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[1].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[1].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[1].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[1].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                        </div>
-                        <div v-if="order.product.length>3 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[2].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[2].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[2].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[2].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                        </div>  
-                        <div v-if="order.product.length>4 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[3].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[3].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[3].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[3].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                        </div>     
-                        <div v-if="order.product.length>5 ? true :false" class=" m-30px bg-white   br-10px products p-20px w-300px">
-                            <q-img width="100%" class="br-3px" :src="order.product[4].imgLink" />
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Mahsulot:{{order.product[4].name}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div  class="q-mt-sm">
-                                <div class="fs-18px ">Vazni: {{order.product[4].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                            <div class="q-mt-sm">
-                                <div class="fs-18px ">Soni: {{order.product[4].amount}}</div>
-                                <q-separator  size="1px" class="bg-dark" />
-                            </div>
-                        </div>      
+                        </div>    
                         
                     </div>
                     <div class="w-100pr row justify-center">
@@ -172,20 +103,20 @@
                             expand-separator
                             icon="perm_identity"
                             label="Qabul Qiluvchi"
-                            :caption="order.fullname"
+                            :caption="order.userName"
                         >
                             <q-card>
                                 <q-card-section>
                                     <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">{{order.fullname}}</div>
+                                        <div class="fs-16px">Oluvchi:{{order.userName}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Tel raqami: {{order.telnumber}}</div>
+                                        <div class="fs-16px">Tel raqami: {{order.phoneNumber}}</div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                     <div class="w-100pr">
-                                        <div class="fs-16px mt-5px">Manzili:{{order.address}} </div>
+                                        <div class="fs-16px">Manzili:{{order.address}} </div>
                                         <q-separator  size="1px" class="bg-grey-7" />
                                     </div>
                                 </q-card-section>
@@ -202,31 +133,48 @@
                     </div>
                 </div>
             </div>
-            
-
         </div>
     </div>
 </template>
 <script>
-import { mapMutations, mapState } from 'vuex'
+import {ref, onMounted} from 'vue';
+import axios from "axios";
 export default {
-    
-    methods:{
-        ...mapMutations(["PREPARATION","READY"]),
-        Preparation(i){
-            this.PREPARATION(i)
-            console.log(this.orders[i].ready);
-           
-        },
-        Ready(i){
-            this.READY(i)
-            console.log(this.orders[i].ready);
+    setup(){
+        const OrdersApi=ref([]) 
+        const a=ref(0)
+        onMounted(()=>{
+            const getComment = async () => {
+                try {
+                    const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/user/');
+                    OrdersApi.value = Fetch_Product.data;
+                    console.log(OrdersApi.value[0].orderForUser.length);
+                    
+                } 
+                catch (err) {
+                    console.log(err);
+                }
+
+            };
+            
+            for(let i=0; i<2;i++){
+                a.value++
+                if(a.value==1){
+                    let TimeOff=setInterval(() => getComment() , 1000);
+                setTimeout(()=>{
+                    clearInterval(TimeOff)
+                },2000)
+                }
+                else{
+                    setInterval(() => getComment() , 20000)
+                }
+            }
+            
+        })
+        return{
+            OrdersApi
         }
     },
-    computed:{
-        ...mapState(["orders",'order']),
-        
-    }
 }
 </script>
 <style scoped>
