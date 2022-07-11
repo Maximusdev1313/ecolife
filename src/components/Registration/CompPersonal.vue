@@ -85,7 +85,7 @@ export default {
     
     const latitude=ref('')
     const longitude=ref('')
-    
+    // lakatsiyani olish funksiyasi
     const getLocation = ()=>{ 
       if(navigator.geolocation){ 
         navigator.geolocation.getCurrentPosition((position)=>{ 
@@ -124,7 +124,8 @@ export default {
     ...mapMutations(["SET_ORDER","CALCULATION_SHOT"]),
     
     setOrder(){
-      if(this.costs.length >=0){
+      // foydalanusvchi ma'lumotlarini POST qilish
+      if(this.costs.length >=1){
         fetch('http://adminmax.pythonanywhere.com/user/', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
@@ -137,11 +138,11 @@ export default {
             
           }) 
         })
+        // foydalanuvchilarni ro'yxatini api da olish
         console.log("salom");
         fetch('http://adminmax.pythonanywhere.com/user/')
         .then(res=>{return res.json()})
         .then(this.result,)
-        .then(this.kkk,)
       }
       else{
         alert("sizda hech qanday buyurtma yo'q")
@@ -150,12 +151,13 @@ export default {
     },
     result(results){
       this.users = results
+      // foydalanuvchini tekshirish 3 bosqichli va uni  idsini olish
       for(let i=0; i<this.users.length; i++){
         if(this.users[i].userName== this.fullname && this.users[i].phoneNumber==this.telnumber && this.users[i].total==this.shot){
           this.usersId=this.users[i].id
         }
       }
-
+      // olingan id bo'yicha foydalanuvchi olgan maxsulotlarni POST qilish
       for(let i=0; i<this.costs.length;i++){
         fetch('http://adminmax.pythonanywhere.com/orders/', {
           method: 'POST',
@@ -172,12 +174,7 @@ export default {
       }
     },
 
-      // logStore(){
-      //   console.log(this.count);
-      // },
-      // kkk(){
-      //   console.log(this.users);
-      // }
+      
   },
   
 }; 
