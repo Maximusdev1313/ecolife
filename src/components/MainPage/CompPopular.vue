@@ -40,36 +40,21 @@
   </div>
 </template>
 <script>
-import {mapMutations} from 'vuex';
 import { ref , onMounted } from "vue";
 import axios from "axios";
 export default {
-  // props:['categoriya','categoriyaImg'],
   setup(){
     const categoriya=ref([])
-    const categoriyaImg=ref([])
          onMounted(()=>{
-        
       const getComment = async () => {
         try {
           const Fetch_Categoriya = await axios.get('http://adminmax.pythonanywhere.com/categoriya/');
           categoriya.value = Fetch_Categoriya.data;
-          console.log('lkjhg');
         } 
         catch (err) {
           console.log(err);
         }
-
       };
-      // const getCategoriya_imgs = async () =>{
-      //   try {
-      //     const Fetch_Categoriya_Img = await axios.get('http://adminmax.pythonanywhere.com/rasmlar/');
-      //     categoriyaImg.value = Fetch_Categoriya_Img.data;
-      //   } 
-      //   catch (err) {
-      //     console.log(err);
-      //   }
-      // }
        let timerId = setInterval(() => { getComment()}, 1000);
       setTimeout(() => { clearInterval(timerId) }, 2000);
       
@@ -79,35 +64,10 @@ export default {
   
       return{
         categoriya,
-        categoriyaImg
       } 
   },
-  data() {
-    return {
-    
-     
-    };
-  },
-  methods:{
-    ...mapMutations(["FETCH_CATEGORIYA"]),
-    // Fetch_Categoriya(){
-    //   fetch('http://127.0.0.1:8000/categoriya/')
-    //     .then(response => response.json())
-    //     .then(data => this.categoriya = data);
-    //     console.log(this.categoriya);
-    //   this.FETCH_CATEGORIYA(this.categoriya)
-    // },
-    // Fetch_Categoriya_imgs(){
-    //   fetch('http://127.0.0.1:8000/rasmlar/')
-    //   .then(response => response.json())
-    //   .then(data => this.categoriyaImg = data);
-    //   console.log(this.categoriyaImg);
-    // }
-  },
-  // mounted() {
-  //   this.Fetch_Categoriya(),
-  //   this.Fetch_Categoriya_imgs()
-  // }
+  
+  
 };
 </script>
 <style scoped>

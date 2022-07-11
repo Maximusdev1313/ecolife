@@ -2,8 +2,9 @@
 
     
       <div class="row items-center justify-center wrap q-mr-lg">
-        <div class="w-30pr_md-70pr_sm-90pr ">
-          <q-img class="fit" src="http://demo.posthemes.com/pos_ecolife_fastfood/375-home_default/pizza-mushrooms.jpg" alt=""/>
+        
+        <div v-for="img in product.imgLink" :key="img" class="w-30pr_md-70pr_sm-90pr ">
+          <q-img class="fit" :src="img.link" alt=""/>
         </div>
         <div class="w-30pr_md-70pr_sm-90pr q-pb-md">
           <span class="text-bold fs-26px_md-24px_sm-22px q-mb-md">{{product.name}}</span>

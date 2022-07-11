@@ -36,7 +36,6 @@ export default {
           const Fetch_Categoriya_Id = await axios.get(`http://adminmax.pythonanywhere.com/categoriya/${route.params.id}/`);
           categoriyaProductId.value = Fetch_Categoriya_Id.data;
           products.value=categoriyaProductId.value.mahsulot
-          console.log('lkjhg');
         } 
         catch (err) {
           console.log(err);

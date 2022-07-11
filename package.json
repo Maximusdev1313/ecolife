@@ -13,6 +13,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "pusher": "^5.1.1-beta",
+    "pusher-js": "^7.1.1-beta",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",

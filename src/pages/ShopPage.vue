@@ -33,6 +33,7 @@
       <Suspense>
         <Shopcards v-if="visabeProduct" :products="products"   />
       </Suspense>
+
       <Shopcards v-if="visabeCateroriya" :products="categoriyPproduct"   />
     </div>
   </q-page>
@@ -42,12 +43,8 @@
 import { ref , onMounted } from "vue";
 import axios from "axios";
 import Shopcards from 'src/components/ShopPage/Shopcards.vue'
-import { mapState } from 'vuex';
 
 export default {
-  computed:{
-    ...mapState(["costs"])
-  },
   components: { Shopcards },
     setup() {
       const products=ref('')

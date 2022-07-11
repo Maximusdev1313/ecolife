@@ -16,135 +16,19 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     state:{
       categoriy:'',
+      search_product:'',
       costs:[],
       shot:"0.00",
-      orders:[
-        {  
-          fullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ]
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ]
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ]
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ]
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ],
-          salom:"salom"
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ],
-          salom:"salom"
-        },
-        {  
-          clientfullname:"Alimardon Mullojonov",
-          address:"o'rta qishloq ko'chasi 22-uy",
-          telnumber:"+998996399459",
-          ready:"",
-          product:[
-            {
-              productname:"olma",
-              img:"https://cdn.quasar.dev/img/mountains.jpg",
-              weight:"2kg", 
-              amount:"2ta"
-            },
-          ],
-        },
-        
-      ],
     },
     
     mutations:{
       // cartigoriyani chaqirib olish
       FETCH_CATEGORIYA:(state,elements)=>{
         state.categoriy==elements
-        console.log(state.categoriy);
       } ,
       // main yoki maxsulotnig pagesidan bu yerga malumot kelib state ichidagi costs obyektiga malumot kelib tushyabdi
       ADD_BACKET:(state,cost)=>{
         state.costs.push(cost)
-        console.log(state.costs);
          
       },
       // bu yerda umumiy shot xisoblanadi calculation shot
@@ -153,7 +37,6 @@ export default store(function (/* { ssrContext } */) {
         for(let i=0;i< state.costs.length; i++){
           state.shot+=state.costs[i].overallPrice*1
         }
-        console.log(state.shot);
       },
       // backed pageda maxsulotni olishdan oldingi o'zgarishlar 
       EDIT_BACKET:(state,i,modifiedCost)=>{
@@ -194,8 +77,11 @@ export default store(function (/* { ssrContext } */) {
       Delivered:(state ,i)=>{
         state.orders[i].ready="Delivered"
       },
+      // productlarni api dan olish
       
-
+      SEND_SEARCH_PRODUCT:(state,search_product)=>{
+        state.search_product=search_product
+      }
 
     },
     modules: {

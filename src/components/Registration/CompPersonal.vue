@@ -1,6 +1,7 @@
 <template> 
   <div class="w-100pr row justify-center"> 
     <!-- bosh sarlavha --> 
+    
     <div 
       class=" w-100pr
         justify-center 
@@ -13,7 +14,7 @@
       <div class="w-100pr h-480px q-ml-md items-center"> 
         <br /> 
         <div class=" text-grey contact text-h5 text-weight-bolder"> 
-          1 Personal Information 
+          1 Personal Information
         </div> 
         <!-- inputlar boshlanishi --> 
         
@@ -51,7 +52,7 @@
         </div> 
  
         <div class="q-mt-xl w-100pr row justify-center "> 
-          <q-btn @click="getLocation" class="btn">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
+          <q-btn @click="getLocation()" class="btn">Lakatsiyani jo'natish  <q-icon name="location_on" class="ml-10px" color="yellow" size="20px"></q-icon></q-btn>
         </div> 
         <br /> 
         <div class="row q-mt-md justify-center"> 
@@ -68,10 +69,23 @@
 <script> 
 import { ref } from '@vue/reactivity';
 import { mapMutations, mapState } from 'vuex';
+import Pusher from 'pusher-js'
+ Pusher.logToConsole = true;
+
+    var pusher = new Pusher('1d0bd70d1290c50eab32', {
+      cluster: 'ap2'
+    });
+
+    var channel = pusher.subscribe('Arzon-development');
+    channel.bind('fullname', function(data) {
+      costs.push(JSON.stringify(data));
+    });
 export default { 
   setup(){
+    
     const latitude=ref('')
     const longitude=ref('')
+    
     const getLocation = ()=>{ 
       if(navigator.geolocation){ 
         navigator.geolocation.getCurrentPosition((position)=>{ 
@@ -84,48 +98,88 @@ export default {
         alert('error'); 
       } 
     }
+    
     return{
       getLocation,
       latitude,
       longitude
     }
   },
+  
   data() { 
     return {   
       fullname: "", 
       telnumber: "", 
       address: "",
       location:"",
+      users:'',
+      usersId:0,
       dense:true, 
     }; 
   }, 
   computed:{
-    ...mapState(["costs"])
+    ...mapState(["costs","shot"])
   },
   methods:{
     ...mapMutations(["SET_ORDER","CALCULATION_SHOT"]),
+    
     setOrder(){
-      if(this.costs.length >=1){
-        const order= {
-          fullname:this.fullname,
-          address:this.address,
-          telnumber:this.telnumber,
-          ready:"",
-          location:this.location,
-          product:this.costs
-        }
-        this.SET_ORDER(order)
-        this.CALCULATION_SHOT()
-        alert("Sizning buyurtmangiz qabul qilindi tez orada adminlarimiz siz bilan  bog'lanishadi")
-        this.setolder=false
-
+      if(this.costs.length >=0){
+        fetch('http://adminmax.pythonanywhere.com/user/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            userName: this.fullname,
+            phoneNumber: this.telnumber,
+            address: this.address,
+            total:this.shot  ,
+            ready:"bu",
+            
+          }) 
+        })
+        console.log("salom");
+        fetch('http://adminmax.pythonanywhere.com/user/')
+        .then(res=>{return res.json()})
+        .then(this.result,)
+        .then(this.kkk,)
       }
       else{
         alert("sizda hech qanday buyurtma yo'q")
       }
+     
+    },
+    result(results){
+      this.users = results
+      for(let i=0; i<this.users.length; i++){
+        if(this.users[i].userName== this.fullname && this.users[i].phoneNumber==this.telnumber && this.users[i].total==this.shot){
+          this.usersId=this.users[i].id
+        }
+      }
 
-    }
-  }
+      for(let i=0; i<this.costs.length;i++){
+        fetch('http://adminmax.pythonanywhere.com/orders/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            product_name: this.costs[i].name,
+            weight: this.costs[i].amount,
+            litr: this.costs[i].liters,
+            quantity:this.costs[i].amount ,
+            summa:this.costs[i].price,
+            orderForUser:this.usersId
+          }) 
+        })
+      }
+    },
+
+      // logStore(){
+      //   console.log(this.count);
+      // },
+      // kkk(){
+      //   console.log(this.users);
+      // }
+  },
+  
 }; 
 </script>
 <style scoped>

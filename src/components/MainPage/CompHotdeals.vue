@@ -97,33 +97,33 @@ setup() {
           try {
             const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/productlar/');
             ProductsApi.value = Fetch_Product.data;
-            console.log('lkjhg');
           } 
           catch (err) {
             console.log(err);
           }
 
         };
-        const getFilter = ()=>{
+        const getFilter = async ()=>{
           productFilter.value=[]
           for(let j=0 ; j <  ProductsApi.value.length ; j++ ){
             if( ProductsApi.value[j].chegirma_foizi != null ){
               productFilter.value.push(ProductsApi.value[j])
-              
             }
           }
-        }
-        const getPush=()=>{
           products.value=[]
           for( let i=0; i < 10 ; i++ ){
             products.value.push(productFilter.value[i])
           }
         }
+        
 
-        let timerId = setInterval(() => {getComment() , getFilter()}, 500);
-        let timerImg= setInterval(() => {getPush()}, 1100);
+        let timerId = setInterval(() => {getComment()}, 1000);
+        
         setTimeout(() => { clearInterval(timerId) }, 2000);
-        setTimeout(() => { clearInterval(timerImg) }, 2000);
+        // setTimeout(() => { clearInterval(timerImg) }, 2150);
+        setTimeout(() => {
+          getFilter()
+        }, 2100);
         
       }
   
@@ -172,13 +172,14 @@ setup() {
         return decimalAdjust('round', value, exp);
       };
     }
-    console.log(Math.round10(1.005, -2))
+    
   },
   methods: {
     // cardning ostidagi iconni bosganda quyidagi amal bajariladi
       ...mapMutations(["ADD_BACKET","CALCULATION_SHOT","INCREMENT"]),     
-
+      // maxsulotni savatga qo'shish funksiyasi
       addBacket(i){
+        // maxsulot oldin savatga qo'shilgan yoki qo'shilmaganligini tekshirish
         this.yangi=0 
         for(let j=0 ; j<this.costs.length ; j++){
           if(this.products[i].nomi==this.costs[j].name){
@@ -186,8 +187,8 @@ setup() {
             this.id=j
           }
         }
-        console.log(this.yangi);
         
+        // qo'shilmagan bo'lsa uni yangi obyektga tenglashtirib qo'shish
         if( this.yangi<1){
           const cost ={
             id:this.products[i].id,
@@ -203,18 +204,18 @@ setup() {
             amount:1,
             overallPrice:this.products[i].chegirma_narx
           }
-          
-          console.log(cost);
+          // vuex ga qiymatni jo'natish va sho'tni xisoblash
           this.ADD_BACKET(cost,i)
           this.CALCULATION_SHOT(i)
+          // q'shilgan malumotlarni dialog oynasiga jo'natish
           this.alertApi=cost
         }
         else{
+          // oldin qo'shilgan bo'lsa uni sononi bittaga ortirish
           this.INCREMENT(this.id)
           this.CALCULATION_SHOT(i)
           this.alertApi=this.costs[this.id]
         }
-        console.log(this.alertApi);
         this.toolbar=true
         
       },
@@ -227,59 +228,11 @@ setup() {
 </script>
 <style scoped>
 @media screen and ( max-width:900px ) and (min-width:500px) {
-   .q-btn{
-    font-size: 12px;
-    margin-right: 5px;
-   }
-   .btn-2{
-    margin-top: 20px;
-    margin-left: 0px;
-   }
-   .btn-content{
-    flex-wrap: wrap;
-    /* justify-content: center; */
-   }
+   
    .text-subtitle1 , .text-subtitle2 , .content-info{
     font-size: 12px;
    }
-   .icon-btn-check{
-    display: none;
-   }
-}
-@media screen and ( max-width:499px ){
-  .content-info{
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .img-pro{
-    width: 80%;
-    height: 250px;
-  }
-  .content-info-bit1{
-    width: 100%;
-    margin-left:50px;
-  }
-  .rotate-90{
-    display:none;
-  }
-  .content-info-bit2{
-    width:100%;
-    margin-left: 50px;
-    margin-top: 0px;
-  }
-  .btn-content{
-    flex-wrap: wrap;
-    /* justify-content: center; */
-   }
-   .q-btn{
-    font-size: 12px;
-    margin-right: 5px;
-   }
-   .btn-2{
-    margin-top: 20px;
-    margin-left: 0px;
-   }
-}
+}   
 .text {
   line-height: 2.3;
 }

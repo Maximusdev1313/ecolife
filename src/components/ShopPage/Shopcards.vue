@@ -23,7 +23,7 @@
             Yangi
           </div>
         </div>
-        <div class="p-15px h-150px">
+        <div class="p-15px h-250px">
           <q-img v-for="img in product.rasmlari " :key="img"
             height="100%"
             class="img"
@@ -78,7 +78,7 @@ import { mapMutations, mapState } from 'vuex';
 // import axios from "axios";
 // import { useRoute } from 'vue-router';
 export default {
-  props:["products","max"],
+  props:["products"],
   computed:{
     ...mapState(['costs'])
   },
@@ -122,26 +122,24 @@ export default {
         return decimalAdjust('round', value, exp);
       };
     }
-    console.log(Math.round10(1.005, -2))
-    this.productsKar=this.products.mahsulot
+    
     
   },
   methods: {
     // cardning ostidagi iconni bosganda quyidagi amal bajariladi
       ...mapMutations(["ADD_BACKET","CALCULATION_SHOT","INCREMENT"]),     
-
+      // maxsulotni savatga qo'shish funksiyasi
       addBacket(i){
-        
+        // maxsulot oldin savatga qo'shilgan yoki qo'shilmaganligini tekshirish
         this.yangi=0 
-        for(let j=0 ; j < this.costs.length ; j++){
+        for(let j=0 ; j<this.costs.length ; j++){
           if(this.products[i].nomi==this.costs[j].name){
             this.yangi++
-            console.log(this.yangi);
             this.id=j
           }
         }
-        console.log(this.yangi);
         
+        // qo'shilmagan bo'lsa uni yangi obyektga tenglashtirib qo'shish
         if( this.yangi<1){
           const cost ={
             id:this.products[i].id,
@@ -157,18 +155,18 @@ export default {
             amount:1,
             overallPrice:this.products[i].chegirma_narx
           }
-          
-          console.log(cost);
+          // vuex ga qiymatni jo'natish va sho'tni xisoblash
           this.ADD_BACKET(cost,i)
           this.CALCULATION_SHOT(i)
+          // q'shilgan malumotlarni dialog oynasiga jo'natish
           this.alertApi=cost
         }
         else{
+          // oldin qo'shilgan bo'lsa uni sononi bittaga ortirish
           this.INCREMENT(this.id)
           this.CALCULATION_SHOT(i)
           this.alertApi=this.costs[this.id]
         }
-        console.log(this.alertApi);
         this.toolbar=true
         
       },

@@ -15,6 +15,7 @@ const routes = [
       { path: '/alert', component: () => import('src/pages/AlertCard.vue')},
       { path: '/about', component: () => import('src/pages/Aboutus.vue')},
       { path: '/shop', component: () => import('src/pages/ShopPage.vue')},
+      { path: '/search', component: () => import('src/pages/SearchPage.vue')},
       
     ]
   },

@@ -1,24 +1,31 @@
 <template>
   <q-layout view="hhh lpR fff">
-    <q-header reveal class="navbar h-70px content-center">
+    <q-header reveal class="navbar h-80px content-center">
       <q-toolbar>
         <router-link to="/">
           <div class="w-100pr h-40px mt-10px row items-center">
-            <img class="w-100pr"
-              src="http://demo.posthemes.com/pos_ecolife/layout2/img/ecolife-responsive-prestashop-theme-logo-1580528177.jpg"
+            <img class="ml-20px"
+              src="../assets/Arzon_free-file.png"
+              width="60"
               alt="" />
           </div>
         </router-link>
         <div class="row w-85pr h-50px mt-10px items-center justify-between">
           <div>
-            <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Home</span>
             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black"> <router-link to="/shop">Shop</router-link> </span>
             <!--<span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Fresh Vegetable</span>
             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Prices Drop</span>
             <span class="span q-ml-xl text-subtitle2 text-weight-bold text-black">Contact us</span> -->
           </div>
-          <div class="w-35pr">
-            <q-input rounded outlined v-model="text" label=" Maxsulotlarni qidirish " />
+          <div class="w-40pr_md-45pr_sm-50pr inp-search-max">
+            <router-link to="search">
+              <q-input rounded outlined v-model="search_massage" label="Mahsulotlarni qidirish" @keypress.enter="SendSearchMassage()" >
+                <template v-slot:append>
+                  <q-icon @click="SendSearchMassage()" name="search" />
+                </template>
+              </q-input>
+            </router-link>
+         
           </div>
           <div>
             <router-link to="login" class="fs-18px mr-20px"> Log In </router-link>
@@ -30,6 +37,18 @@
           </div>
         </div>
       </q-toolbar>
+      <div class="w-100pr navbar mt-20px row justify-center items-center" >
+        <div  class="w-90pr search-inp">
+            <router-link to="search">
+              <q-input class="mt-10px mb-5px" rounded outlined v-model="search_massage" label="Mahsulotlarni qidirish" @keypress.enter="SendSearchMassage()" >
+                <template v-slot:append>
+                  <q-icon @click="SendSearchMassage()" name="search" />
+                </template>
+              </q-input>
+            </router-link>
+         
+          </div>
+      </div>
     </q-header>
 
     <q-page-container>
@@ -41,7 +60,7 @@
         <div class="w-92pr h-60pr row">
           <div class="w-25pr h-100pr">
             <div class="text-h6 text-weight-bolder text-white">
-              OPENING HOURS
+              Ish vaqti
             </div>
             <div class="q-mt-lg text-grey text-weight-bold">
               Monday – Friday: 8am – 4pm
@@ -107,18 +126,66 @@
 
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapMutations, mapState } from 'vuex';
+import {ref, onMounted} from 'vue';
+import axios from "axios";
 export default {
+computed:{
+    ...mapState(['costs'])
+  },
+setup() {
+  // ko'ringanida apidan maxsulotlarni oladi
+      const ProductsApi=ref([])
+      onMounted(()=>{
+        const getComment = async () => {
+          try {
+            const Fetch_Product = await axios.get('http://adminmax.pythonanywhere.com/productlar/');
+            ProductsApi.value = Fetch_Product.data;
+          } 
+          catch (err) {
+            console.log(err);
+          }
+
+        };
+        let timerId = setInterval(() => {getComment() }, 500);
+        setTimeout(() => { clearInterval(timerId) }, 2000);        
+      }
+  
+    )
+    return {
+      ProductsApi,      
+    }
+  },
+
   data() {
     return {
       email:"",
+      search_massage:"",
+      search_products:[],
       dense:true,
     }
   },
   computed:{
     ...mapState(["shot"])
   },
+  //vuex da productlarni olish
+  methods:{
+    // qidirish tugmasi bosilganid aqidirilayotgan maxulot ni topib uni  search_products ga qo'shib qo'yadi va vuex ga jo'natadi
+    ...mapMutations(['SEND_SEARCH_PRODUCT']),
+    SendSearchMassage(){
+      this.search_products=[]
+      for(let j=0;j<this.ProductsApi.length;j++){
+        if(this.search_massage==this.ProductsApi[j].nomi){
+          this.search_products.push(this.ProductsApi[j])
+          this.search_massage=""
+        }
+      }
+      this.SEND_SEARCH_PRODUCT(this.search_products)  
+      
+    }
+    
+  }
+
 };
 </script>
 <style scoped>
@@ -136,8 +203,8 @@ a{
   background: linear-gradient(
     to right,
     rgb(255, 255, 255),
-    rgb(196, 191, 197),
-    rgb(114, 112, 114)
+    rgb(176, 253, 253),
+    rgb(74, 152, 226)
   ) ;
 }
 .span {
@@ -169,5 +236,18 @@ a{
   line-height: 2.5;
   color: grey;
 }
+.search-inp{
+    display: none;
+  }
+@media screen and (max-width:600px) {
+  .search-inp{
+    display: block;
+  }
+  .inp-search-max{
+    display: none;
+  }
+  
+}
+
 
 </style>
